@@ -26,18 +26,18 @@ const taskIcons: Record<TaskKey, any> = {
 }
 
 const variantShells = {
-  'listing-directory': 'bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.08),transparent_24%),linear-gradient(180deg,#f8fbff_0%,#ffffff_100%)]',
-  'listing-showcase': 'bg-[linear-gradient(180deg,#ffffff_0%,#f4f9ff_100%)]',
-  'article-editorial': 'bg-[radial-gradient(circle_at_top_left,rgba(251,191,36,0.08),transparent_20%),linear-gradient(180deg,#fff8ef_0%,#ffffff_100%)]',
-  'article-journal': 'bg-[linear-gradient(180deg,#fffdf9_0%,#f7f1ea_100%)]',
-  'image-masonry': 'bg-[linear-gradient(180deg,#09101d_0%,#111c2f_100%)] text-white',
-  'image-portfolio': 'bg-[linear-gradient(180deg,#07111f_0%,#13203a_100%)] text-white',
-  'profile-creator': 'bg-[linear-gradient(180deg,#0a1120_0%,#101c34_100%)] text-white',
-  'profile-business': 'bg-[linear-gradient(180deg,#f6fbff_0%,#ffffff_100%)]',
-  'classified-bulletin': 'bg-[linear-gradient(180deg,#edf3e4_0%,#ffffff_100%)]',
-  'classified-market': 'bg-[linear-gradient(180deg,#f4f6ef_0%,#ffffff_100%)]',
-  'sbm-curation': 'bg-[linear-gradient(180deg,#fff7ee_0%,#ffffff_100%)]',
-  'sbm-library': 'bg-[linear-gradient(180deg,#f7f8fc_0%,#ffffff_100%)]',
+  'listing-directory': 'bg-[radial-gradient(circle_at_top_left,rgba(190,91,80,0.08),transparent_24%),linear-gradient(180deg,#FBDB93_0%,#ffffff_100%)]',
+  'listing-showcase': 'bg-[linear-gradient(180deg,#ffffff_0%,#FBDB93_100%)]',
+  'article-editorial': 'bg-[radial-gradient(circle_at_top_left,rgba(190,91,80,0.08),transparent_20%),linear-gradient(180deg,#FBDB93_0%,#ffffff_100%)]',
+  'article-journal': 'bg-[linear-gradient(180deg,#FBDB93_0%,#fff4e8_100%)]',
+  'image-masonry': 'bg-[linear-gradient(180deg,#641B2E_0%,#8A2D3B_100%)] text-white',
+  'image-portfolio': 'bg-[linear-gradient(180deg,#641B2E_0%,#8A2D3B_100%)] text-white',
+  'profile-creator': 'bg-[linear-gradient(180deg,#641B2E_0%,#8A2D3B_100%)] text-white',
+  'profile-business': 'bg-[linear-gradient(180deg,#FBDB93_0%,#ffffff_100%)]',
+  'classified-bulletin': 'bg-[linear-gradient(180deg,#FBDB93_0%,#ffffff_100%)]',
+  'classified-market': 'bg-[linear-gradient(180deg,#FBDB93_0%,#ffffff_100%)]',
+  'sbm-curation': 'bg-[linear-gradient(180deg,#FBDB93_0%,#ffffff_100%)]',
+  'sbm-library': 'bg-[linear-gradient(180deg,#FBDB93_0%,#ffffff_100%)]',
 } as const
 
 export async function TaskListPage({ task, category }: { task: TaskKey; category?: string }) {
@@ -64,26 +64,26 @@ export async function TaskListPage({ task, category }: { task: TaskKey; category
   const isDark = ['image-masonry', 'image-portfolio', 'profile-creator'].includes(layoutKey)
   const ui = isDark
     ? {
-        muted: 'text-slate-300',
-        panel: 'border border-white/10 bg-white/6',
-        soft: 'border border-white/10 bg-white/5',
-        input: 'border-white/10 bg-white/6 text-white',
-        button: 'bg-white text-slate-950 hover:bg-slate-200',
+        muted: 'text-[#FBDB93]',
+        panel: 'border border-[#FBDB93]/20 bg-white/10',
+        soft: 'border border-[#FBDB93]/15 bg-white/5',
+        input: 'border-[#FBDB93]/20 bg-white/10 text-white',
+        button: 'bg-[#BE5B50] text-white hover:bg-[#8A2D3B]',
       }
     : layoutKey.startsWith('article') || layoutKey.startsWith('sbm')
       ? {
-          muted: 'text-[#72594a]',
-          panel: 'border border-[#dbc6b6] bg-white/90',
-          soft: 'border border-[#dbc6b6] bg-[#fff8ef]',
-          input: 'border border-[#dbc6b6] bg-white text-[#2f1d16]',
-          button: 'bg-[#2f1d16] text-[#fff4e4] hover:bg-[#452920]',
+          muted: 'text-[#8A2D3B]',
+          panel: 'border border-[#BE5B50]/20 bg-white/90',
+          soft: 'border border-[#BE5B50]/15 bg-[#FBDB93]/30',
+          input: 'border border-[#BE5B50]/20 bg-white text-[#641B2E]',
+          button: 'bg-[#BE5B50] text-[#FBDB93] hover:bg-[#8A2D3B]',
         }
       : {
-          muted: 'text-slate-600',
-          panel: 'border border-slate-200 bg-white',
-          soft: 'border border-slate-200 bg-slate-50',
-          input: 'border border-slate-200 bg-white text-slate-950',
-          button: 'bg-slate-950 text-white hover:bg-slate-800',
+          muted: 'text-[#8A2D3B]',
+          panel: 'border border-[#BE5B50]/20 bg-white',
+          soft: 'border border-[#BE5B50]/15 bg-[#FBDB93]/20',
+          input: 'border border-[#BE5B50]/20 bg-white text-[#641B2E]',
+          button: 'bg-[#BE5B50] text-white hover:bg-[#8A2D3B]',
         }
 
   return (
