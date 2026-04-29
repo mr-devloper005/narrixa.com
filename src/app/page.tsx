@@ -111,14 +111,14 @@ function getDirectoryTone(brandPack: string) {
 
 function getEditorialTone() {
   return {
-    shell: 'bg-[#fbf6ee] text-[#241711]',
-    panel: 'border border-[#dcc8b7] bg-[#fffdfa] shadow-[0_24px_60px_rgba(77,47,27,0.08)]',
-    soft: 'border border-[#e6d6c8] bg-[#fff4e8]',
-    muted: 'text-[#6e5547]',
-    title: 'text-[#241711]',
-    badge: 'bg-[#241711] text-[#fff1e2]',
-    action: 'bg-[#241711] text-[#fff1e2] hover:bg-[#3a241b]',
-    actionAlt: 'border border-[#dcc8b7] bg-transparent text-[#241711] hover:bg-[#f5e7d7]',
+    shell: 'bg-[#FBDB93] text-[#641B2E]',
+    panel: 'border border-[#BE5B50]/20 bg-white shadow-[0_24px_60px_rgba(190,91,80,0.08)]',
+    soft: 'border border-[#BE5B50]/15 bg-[#FBDB93]/30',
+    muted: 'text-[#8A2D3B]',
+    title: 'text-[#641B2E]',
+    badge: 'bg-[#BE5B50] text-[#FBDB93]',
+    action: 'bg-[#BE5B50] text-[#FBDB93] hover:bg-[#8A2D3B]',
+    actionAlt: 'border border-[#BE5B50]/30 bg-transparent text-[#641B2E] hover:bg-[#FBDB93]/50',
   }
 }
 
@@ -330,46 +330,46 @@ function EditorialHome({
   const secondParagraph = bodyB || SITE_CONFIG.tagline
 
   return (
-    <main className="bg-[#fafafa] text-[#1a1a1a]">
-      <div className="mx-auto min-h-screen max-w-[1400px] border-x border-[#0f172a]/8 bg-white shadow-[0_0_0_1px_rgba(15,23,42,0.04)]">
+    <main className={`${tone.shell}`}>
+      <div className="mx-auto min-h-screen max-w-[1400px] border-x border-[#BE5B50]/15 bg-white shadow-[0_0_0_1px_rgba(190,91,80,0.08)]">
         <section className="px-5 py-12 sm:px-8 sm:py-16 lg:px-12 lg:py-20">
           <div className="grid gap-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-10 lg:items-start">
             {/* Left: lead story — headings + highlighted body */}
             <div className="order-1 max-w-xl lg:pt-2">
-              <p className="font-display text-[2.15rem] font-medium leading-[1.05] tracking-[-0.04em] sm:text-5xl">
+              <p className="font-display text-[2.15rem] font-medium leading-[1.05] tracking-[-0.04em] sm:text-5xl text-[#641B2E]">
                 {SITE_CONFIG.name}
               </p>
-              <p className="mt-4 max-w-md text-[0.95rem] leading-relaxed text-[#444]">{SITE_CONFIG.tagline}</p>
+              <p className="mt-4 max-w-md text-[0.95rem] leading-relaxed text-[#8A2D3B]">{SITE_CONFIG.tagline}</p>
 
-              <p className="mt-6 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#64748b]">
+              <p className="mt-6 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#8A2D3B]">
                 {lead ? getPostCategoryLabel(lead) : 'Featured'}
               </p>
-              <h1 className="font-display mt-3 text-[2.35rem] font-medium leading-[1.08] tracking-[-0.035em] text-[#111] sm:text-5xl lg:text-[2.75rem]">
-                <span className="decoration-primary/35 underline decoration-2 underline-offset-[0.18em]">{headline}</span>
+              <h1 className="font-display mt-3 text-[2.35rem] font-medium leading-[1.08] tracking-[-0.035em] text-[#641B2E] sm:text-5xl lg:text-[2.75rem]">
+                <span className="decoration-[#BE5B50]/35 underline decoration-2 underline-offset-[0.18em]">{headline}</span>
               </h1>
 
-              <div className="mt-8 space-y-5 rounded-r-xl border-l-4 border-primary bg-primary/6 py-4 pl-5 pr-4 text-[0.98rem] leading-[1.75] text-[#2d2d2d]">
+              <div className="mt-8 space-y-5 rounded-r-xl border-l-4 border-[#BE5B50] bg-[#FBDB93]/20 py-4 pl-5 pr-4 text-[0.98rem] leading-[1.75] text-[#641B2E]">
                 {bodyA ? <p>{bodyA}</p> : null}
-                {secondParagraph ? <p className="text-[#3d3d3d]">{secondParagraph}</p> : null}
+                {secondParagraph ? <p className="text-[#8A2D3B]">{secondParagraph}</p> : null}
               </div>
 
               {featuredSecondary ? (
                 <Link
                   href={postHref(featuredSecondary)}
-                  className="mt-10 block max-w-lg border-t border-black/10 pt-8 transition-colors hover:bg-[#f8fafc]"
+                  className="mt-10 block max-w-lg border-t border-[#BE5B50]/20 pt-8 transition-colors hover:bg-[#FBDB93]/20"
                 >
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#64748b]">Also this week</p>
-                  <p className="font-display mt-2 text-lg font-semibold leading-snug text-[#0f172a]">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#8A2D3B]">Also this week</p>
+                  <p className="font-display mt-2 text-lg font-semibold leading-snug text-[#641B2E]">
                     {featuredSecondary.title}
                   </p>
                   {featuredSecondary.summary ? (
-                    <p className="mt-3 rounded-md bg-amber-50/90 px-3 py-2 text-sm leading-relaxed text-[#422006] ring-1 ring-amber-200/80">
+                    <p className="mt-3 rounded-md bg-[#FBDB93]/40 px-3 py-2 text-sm leading-relaxed text-[#641B2E] ring-1 ring-[#BE5B50]/30">
                       {featuredSecondary.summary}
                     </p>
                   ) : null}
                 </Link>
               ) : (
-                <div className="mt-10 border-t border-black/10 pt-8">
+                <div className="mt-10 border-t border-[#BE5B50]/20 pt-8">
                   <Link
                     href={primaryTask?.route || '/articles'}
                     className={`inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold ${tone.action}`}
@@ -383,28 +383,28 @@ function EditorialHome({
 
             {/* Center: spotlight stack — text-only cards */}
             <div className="order-3 flex flex-col gap-5 lg:order-2">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#64748b]">Spotlight</p>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#8A2D3B]">Spotlight</p>
               {spotlightPosts.length ? (
                 spotlightPosts.map((post, i) => (
                   <Link
                     key={post.id}
                     href={postHref(post)}
-                    className="group rounded-xl border border-black/10 bg-[#fafafa] p-5 shadow-sm transition hover:border-primary/40 hover:shadow-md"
+                    className="group rounded-xl border border-[#BE5B50]/15 bg-white p-5 shadow-sm transition hover:border-[#BE5B50]/40 hover:shadow-md"
                   >
-                    <span className="text-[10px] font-bold tabular-nums text-primary/80">{String(i + 1).padStart(2, '0')}</span>
-                    <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#64748b]">
+                    <span className="text-[10px] font-bold tabular-nums text-[#BE5B50]/80">{String(i + 1).padStart(2, '0')}</span>
+                    <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#8A2D3B]">
                       {getPostCategoryLabel(post)}
                     </p>
-                    <h2 className="font-display mt-2 text-xl font-semibold leading-snug text-[#0f172a] group-hover:text-primary">
+                    <h2 className="font-display mt-2 text-xl font-semibold leading-snug text-[#641B2E] group-hover:text-[#BE5B50]">
                       {post.title}
                     </h2>
                     {post.summary ? (
-                      <p className="mt-3 border-l-2 border-primary/50 pl-3 text-sm leading-relaxed text-[#444]">{post.summary}</p>
+                      <p className="mt-3 border-l-2 border-[#BE5B50]/50 pl-3 text-sm leading-relaxed text-[#8A2D3B]">{post.summary}</p>
                     ) : null}
                   </Link>
                 ))
               ) : (
-                <p className="text-sm text-[#666]">More stories will appear here.</p>
+                <p className="text-sm text-[#8A2D3B]">More stories will appear here.</p>
               )}
             </div>
 
@@ -412,11 +412,11 @@ function EditorialHome({
 
           {/* Heavy grid — more dummy / real cards, content-forward */}
           {deckPosts.length ? (
-            <div className="mt-16 border-t border-black/10 pt-14">
-              <h2 className="font-display text-2xl font-semibold tracking-[-0.02em] text-[#111] sm:text-3xl">
-                <span className="bg-[linear-gradient(transparent_65%,rgba(29,78,216,0.15)_0)]">From the desk</span>
+            <div className="mt-16 border-t border-[#BE5B50]/20 pt-14">
+              <h2 className="font-display text-2xl font-semibold tracking-[-0.02em] text-[#641B2E] sm:text-3xl">
+                <span className="bg-[linear-gradient(transparent_65%,rgba(190,91,80,0.15)_0)]">From the desk</span>
               </h2>
-              <p className="mt-2 max-w-2xl text-sm text-[#555]">
+              <p className="mt-2 max-w-2xl text-sm text-[#8A2D3B]">
                 Longer summaries stay on the home page for scan-friendly reading. When your CMS feed is connected, these rows fill automatically from published posts.
               </p>
               <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -424,14 +424,14 @@ function EditorialHome({
                   <Link
                     key={post.id}
                     href={postHref(post)}
-                    className="flex h-full flex-col rounded-2xl border border-black/10 bg-white p-6 shadow-[0_8px_30px_rgba(15,23,42,0.06)] transition hover:border-primary/35 hover:shadow-[0_12px_40px_rgba(15,23,42,0.1)]"
+                    className="flex h-full flex-col rounded-2xl border border-[#BE5B50]/15 bg-white p-6 shadow-[0_8px_30px_rgba(190,91,80,0.06)] transition hover:border-[#BE5B50]/35 hover:shadow-[0_12px_40px_rgba(190,91,80,0.1)]"
                   >
-                    <span className="w-fit rounded-full bg-primary/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-primary">
+                    <span className="w-fit rounded-full bg-[#BE5B50]/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#BE5B50]">
                       {getPostCategoryLabel(post)}
                     </span>
-                    <h3 className="font-display mt-4 text-xl font-semibold leading-snug text-[#0f172a]">{post.title}</h3>
+                    <h3 className="font-display mt-4 text-xl font-semibold leading-snug text-[#641B2E]">{post.title}</h3>
                     {post.summary ? (
-                      <p className="mt-4 grow rounded-lg bg-slate-50 px-3 py-3 text-sm leading-[1.65] text-[#334155] ring-1 ring-slate-200/80">
+                      <p className="mt-4 grow rounded-lg bg-[#FBDB93]/30 px-3 py-3 text-sm leading-[1.65] text-[#641B2E] ring-1 ring-[#BE5B50]/20">
                         {post.summary}
                       </p>
                     ) : null}
@@ -442,15 +442,15 @@ function EditorialHome({
           ) : null}
 
           {supportTasks.length ? (
-            <div className="mt-16 grid gap-4 border-t border-black/10 pt-12 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-16 grid gap-4 border-t border-[#BE5B50]/20 pt-12 sm:grid-cols-2 lg:grid-cols-3">
               {supportTasks.slice(0, 3).map((task) => (
                 <Link
                   key={task.key}
                   href={task.route}
-                  className="rounded-xl border border-black/10 bg-[#fafafa] px-5 py-4 transition hover:bg-[#f3f3f3]"
+                  className="rounded-xl border border-[#BE5B50]/15 bg-[#FBDB93]/20 px-5 py-4 transition hover:bg-[#FBDB93]/40"
                 >
-                  <h3 className="font-display text-lg font-medium text-[#111]">{task.label}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-[#555]">{task.description}</p>
+                  <h3 className="font-display text-lg font-medium text-[#641B2E]">{task.label}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-[#8A2D3B]">{task.description}</p>
                 </Link>
               ))}
             </div>
@@ -461,7 +461,7 @@ function EditorialHome({
           className="h-4 w-full"
           style={{
             background:
-              'repeating-linear-gradient(90deg, #0a0a0a 0px, #0a0a0a 3px, #fff 3px, #fff 5px, #0a0a0a 5px, #0a0a0a 8px, #fafafa 8px, #fafafa 11px)',
+              'repeating-linear-gradient(90deg, #641B2E 0px, #641B2E 3px, #FBDB93 3px, #FBDB93 5px, #BE5B50 5px, #BE5B50 8px, #FBDB93 8px, #FBDB93 11px)',
           }}
           aria-hidden
         />

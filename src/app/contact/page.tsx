@@ -9,37 +9,37 @@ import { CONTACT_PAGE_OVERRIDE_ENABLED, ContactPageOverride } from '@/overrides/
 function getTone(kind: ReturnType<typeof getProductKind>) {
   if (kind === 'directory') {
     return {
-      shell: 'bg-[#f8fbff] text-slate-950',
-      panel: 'border border-slate-200 bg-white',
-      soft: 'border border-slate-200 bg-slate-50',
-      muted: 'text-slate-600',
-      action: 'bg-slate-950 text-white hover:bg-slate-800',
+      shell: 'bg-[#FBDB93]/20 text-[#641B2E]',
+      panel: 'border border-[#BE5B50]/20 bg-white',
+      soft: 'border border-[#BE5B50]/15 bg-[#FBDB93]/30',
+      muted: 'text-[#8A2D3B]',
+      action: 'bg-[#BE5B50] text-white hover:bg-[#8A2D3B]',
     }
   }
   if (kind === 'editorial') {
     return {
-      shell: 'bg-[#fbf6ee] text-[#241711]',
-      panel: 'border border-[#dcc8b7] bg-[#fffdfa]',
-      soft: 'border border-[#e6d6c8] bg-[#fff4e8]',
-      muted: 'text-[#6e5547]',
-      action: 'bg-[#241711] text-[#fff1e2] hover:bg-[#3a241b]',
+      shell: 'bg-[#FBDB93]/20 text-[#641B2E]',
+      panel: 'border border-[#BE5B50]/20 bg-white',
+      soft: 'border border-[#BE5B50]/15 bg-[#FBDB93]/30',
+      muted: 'text-[#8A2D3B]',
+      action: 'bg-[#BE5B50] text-[#FBDB93] hover:bg-[#8A2D3B]',
     }
   }
   if (kind === 'visual') {
     return {
-      shell: 'bg-[#07101f] text-white',
-      panel: 'border border-white/10 bg-white/6',
-      soft: 'border border-white/10 bg-white/5',
-      muted: 'text-slate-300',
-      action: 'bg-[#8df0c8] text-[#07111f] hover:bg-[#77dfb8]',
+      shell: 'bg-[#641B2E] text-white',
+      panel: 'border border-[#FBDB93]/20 bg-white/10',
+      soft: 'border border-[#FBDB93]/15 bg-white/5',
+      muted: 'text-[#FBDB93]',
+      action: 'bg-[#BE5B50] text-white hover:bg-[#8A2D3B]',
     }
   }
   return {
-    shell: 'bg-[#f7f1ea] text-[#261811]',
-    panel: 'border border-[#ddcdbd] bg-[#fffaf4]',
-    soft: 'border border-[#e8dbce] bg-[#f3e8db]',
-    muted: 'text-[#71574a]',
-    action: 'bg-[#5b2b3b] text-[#fff0f5] hover:bg-[#74364b]',
+    shell: 'bg-[#FBDB93]/20 text-[#641B2E]',
+    panel: 'border border-[#BE5B50]/20 bg-white',
+    soft: 'border border-[#BE5B50]/15 bg-[#FBDB93]/30',
+    muted: 'text-[#8A2D3B]',
+    action: 'bg-[#BE5B50] text-[#FBDB93] hover:bg-[#8A2D3B]',
   }
 }
 
@@ -60,9 +60,9 @@ export default function ContactPage() {
         ]
       : productKind === 'editorial'
         ? [
-            { icon: FileText, title: 'Editorial submissions', body: 'Pitch essays, columns, and long-form ideas that fit the publication.' },
-            { icon: Mail, title: 'Newsletter partnerships', body: 'Coordinate sponsorships, collaborations, and issue-level campaigns.' },
-            { icon: Sparkles, title: 'Contributor support', body: 'Get help with voice, formatting, and publication workflow questions.' },
+            { icon: FileText, title: 'Press release submissions', body: 'Submit your press releases for distribution to our media network and get maximum coverage.' },
+            { icon: Mail, title: 'Media partnerships', body: 'Coordinate with journalists, media outlets, and industry publications for enhanced distribution.' },
+            { icon: Sparkles, title: 'Distribution support', body: 'Get help with targeting, timing, and optimizing your press release campaigns.' },
           ]
         : productKind === 'visual'
           ? [
@@ -83,8 +83,8 @@ export default function ContactPage() {
         <section className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.24em] opacity-70">Contact {SITE_CONFIG.name}</p>
-            <h1 className="mt-4 text-5xl font-semibold tracking-[-0.05em]">A support page that matches the product, not a generic contact form.</h1>
-            <p className={`mt-5 max-w-2xl text-sm leading-8 ${tone.muted}`}>Tell us what you are trying to publish, fix, or launch. We will route it through the right lane instead of forcing every request into the same support bucket.</p>
+            <h1 className="mt-4 text-5xl font-semibold tracking-[-0.05em]">Press release distribution support that understands your needs.</h1>
+            <p className={`mt-5 max-w-2xl text-sm leading-8 ${tone.muted}`}>Whether you need help with distribution, targeting, or campaign strategy, we'll connect you with the right experts to maximize your media reach.</p>
             <div className="mt-8 space-y-4">
               {lanes.map((lane) => (
                 <div key={lane.title} className={`rounded-[1.6rem] p-5 ${tone.soft}`}>
@@ -101,8 +101,8 @@ export default function ContactPage() {
             <form className="mt-6 grid gap-4">
               <input className="h-12 rounded-xl border border-current/10 bg-transparent px-4 text-sm" placeholder="Your name" />
               <input className="h-12 rounded-xl border border-current/10 bg-transparent px-4 text-sm" placeholder="Email address" />
-              <input className="h-12 rounded-xl border border-current/10 bg-transparent px-4 text-sm" placeholder="What do you need help with?" />
-              <textarea className="min-h-[180px] rounded-2xl border border-current/10 bg-transparent px-4 py-3 text-sm" placeholder="Share the full context so we can respond with the right next step." />
+              <input className="h-12 rounded-xl border border-current/10 bg-transparent px-4 text-sm" placeholder="Company or organization" />
+              <textarea className="min-h-[180px] rounded-2xl border border-current/10 bg-transparent px-4 py-3 text-sm" placeholder="Tell us about your press release needs, campaign goals, or distribution requirements." />
               <button type="submit" className={`inline-flex h-12 items-center justify-center rounded-full px-6 text-sm font-semibold ${tone.action}`}>Send message</button>
             </form>
           </div>
