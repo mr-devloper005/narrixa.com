@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Search, Menu, X, User, FileText, Building2, LayoutGrid, Tag, Image as ImageIcon, ChevronRight, Sparkles, MapPin, Plus } from 'lucide-react'
+import { Search, Menu, X, User, FileText, Building2, LayoutGrid, Tag, Image as ImageIcon, ChevronRight, Sparkles, MapPin, Plus, Mail } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useAuth } from '@/lib/auth-context'
 import { SITE_CONFIG, type TaskKey } from '@/lib/site-config'
@@ -34,57 +34,57 @@ const taskIcons: Record<TaskKey, any> = {
 
 const variantClasses = {
   'compact-bar': {
-    shell: 'border-b border-slate-200/80 bg-white/88 text-slate-950 backdrop-blur-xl',
-    logo: 'rounded-2xl border border-slate-200 bg-white shadow-sm',
-    active: 'bg-slate-950 text-white',
-    idle: 'text-slate-600 hover:bg-slate-100 hover:text-slate-950',
-    cta: 'rounded-full bg-slate-950 text-white hover:bg-slate-800',
-    mobile: 'border-t border-slate-200/70 bg-white/95',
+    shell: 'border-b border-[#BE5B50]/20 bg-gradient-to-r from-[#641B2E] to-[#8A2D3B] text-white backdrop-blur-xl',
+    logo: 'rounded-2xl border border-[#FBDB93]/30 bg-white shadow-sm',
+    active: 'bg-[#FBDB93] text-[#641B2E]',
+    idle: 'text-white/80 hover:bg-[#FBDB93]/20 hover:text-white',
+    cta: 'rounded-full bg-[#FBDB93] text-[#641B2E] hover:bg-white',
+    mobile: 'border-t border-[#BE5B50]/20 bg-[#641B2E]/96',
   },
   'editorial-bar': {
-    shell: 'border-b border-[#d7c4b3] bg-[#fff7ee]/90 text-[#2f1d16] backdrop-blur-xl',
-    logo: 'rounded-full border border-[#dbc6b6] bg-white shadow-sm',
-    active: 'bg-[#2f1d16] text-[#fff4e4]',
-    idle: 'text-[#72594a] hover:bg-[#f2e5d4] hover:text-[#2f1d16]',
-    cta: 'rounded-full bg-[#2f1d16] text-[#fff4e4] hover:bg-[#452920]',
-    mobile: 'border-t border-[#dbc6b6] bg-[#fff7ee]',
+    shell: 'border-b border-[#BE5B50]/20 bg-gradient-to-r from-[#641B2E] to-[#8A2D3B] text-white backdrop-blur-xl',
+    logo: 'rounded-full border border-[#FBDB93]/30 bg-white shadow-sm',
+    active: 'bg-[#FBDB93] text-[#641B2E]',
+    idle: 'text-white/80 hover:bg-[#FBDB93]/20 hover:text-white',
+    cta: 'rounded-full bg-[#FBDB93] text-[#641B2E] hover:bg-white',
+    mobile: 'border-t border-[#BE5B50]/20 bg-[#641B2E]/96',
   },
   'floating-bar': {
     shell: 'border-b border-transparent bg-transparent text-white',
-    logo: 'rounded-[1.35rem] border border-white/12 bg-white/8 shadow-[0_16px_48px_rgba(15,23,42,0.22)] backdrop-blur',
-    active: 'bg-[#8df0c8] text-[#07111f]',
-    idle: 'text-slate-200 hover:bg-white/10 hover:text-white',
-    cta: 'rounded-full bg-[#8df0c8] text-[#07111f] hover:bg-[#77dfb8]',
-    mobile: 'border-t border-white/10 bg-[#09101d]/96',
+    logo: 'rounded-[1.35rem] border border-[#FBDB93]/30 bg-white/90 shadow-[0_16px_48px_rgba(190,91,80,0.22)] backdrop-blur',
+    active: 'bg-[#FBDB93] text-[#641B2E]',
+    idle: 'text-white/80 hover:bg-white/10 hover:text-white',
+    cta: 'rounded-full bg-[#FBDB93] text-[#641B2E] hover:bg-white',
+    mobile: 'border-t border-[#BE5B50]/20 bg-[#641B2E]/96',
   },
   'utility-bar': {
-    shell: 'border-b border-[#d7deca] bg-[#f4f6ef]/94 text-[#1f2617] backdrop-blur-xl',
-    logo: 'rounded-xl border border-[#d7deca] bg-white shadow-sm',
-    active: 'bg-[#1f2617] text-[#edf5dc]',
-    idle: 'text-[#56604b] hover:bg-[#e7edd9] hover:text-[#1f2617]',
-    cta: 'rounded-lg bg-[#1f2617] text-[#edf5dc] hover:bg-[#2f3a24]',
-    mobile: 'border-t border-[#d7deca] bg-[#f4f6ef]',
+    shell: 'border-b border-[#BE5B50]/20 bg-gradient-to-r from-[#641B2E] to-[#8A2D3B] text-white backdrop-blur-xl',
+    logo: 'rounded-xl border border-[#FBDB93]/30 bg-white shadow-sm',
+    active: 'bg-[#FBDB93] text-[#641B2E]',
+    idle: 'text-white/80 hover:bg-[#FBDB93]/20 hover:text-white',
+    cta: 'rounded-lg bg-[#FBDB93] text-[#641B2E] hover:bg-white',
+    mobile: 'border-t border-[#BE5B50]/20 bg-[#641B2E]/96',
   },
 } as const
 
 const directoryPalette = {
   'directory-clean': {
-    shell: 'border-b border-slate-200 bg-white/94 text-slate-950 shadow-[0_1px_0_rgba(15,23,42,0.04)] backdrop-blur-xl',
-    logo: 'rounded-2xl border border-slate-200 bg-slate-50',
-    nav: 'text-slate-600 hover:text-slate-950',
-    search: 'border border-slate-200 bg-slate-50 text-slate-600',
-    cta: 'bg-slate-950 text-white hover:bg-slate-800',
-    post: 'border border-slate-200 bg-white text-slate-950 hover:bg-slate-50',
-    mobile: 'border-t border-slate-200 bg-white',
+    shell: 'border-b border-[#BE5B50]/20 bg-gradient-to-r from-[#641B2E] to-[#8A2D3B] text-white shadow-[0_1px_0_rgba(190,91,80,0.04)] backdrop-blur-xl',
+    logo: 'rounded-2xl border border-[#FBDB93]/30 bg-white',
+    nav: 'text-white/80 hover:text-white',
+    search: 'border border-[#FBDB93]/30 bg-white/20 text-white placeholder-white/60',
+    cta: 'bg-[#FBDB93] text-[#641B2E] hover:bg-white',
+    post: 'border border-[#BE5B50]/20 bg-white text-[#641B2E] hover:bg-[#FBDB93]/30',
+    mobile: 'border-t border-[#BE5B50]/20 bg-white',
   },
   'market-utility': {
-    shell: 'border-b border-[#d7deca] bg-[#f4f6ef]/96 text-[#1f2617] shadow-[0_1px_0_rgba(64,76,34,0.06)] backdrop-blur-xl',
-    logo: 'rounded-xl border border-[#d7deca] bg-white',
-    nav: 'text-[#56604b] hover:text-[#1f2617]',
-    search: 'border border-[#d7deca] bg-white text-[#56604b]',
-    cta: 'bg-[#1f2617] text-[#edf5dc] hover:bg-[#2f3a24]',
-    post: 'border border-[#d7deca] bg-white text-[#1f2617] hover:bg-[#eef2e4]',
-    mobile: 'border-t border-[#d7deca] bg-[#f4f6ef]',
+    shell: 'border-b border-[#BE5B50]/20 bg-gradient-to-r from-[#641B2E] to-[#8A2D3B] text-white shadow-[0_1px_0_rgba(190,91,80,0.06)] backdrop-blur-xl',
+    logo: 'rounded-xl border border-[#FBDB93]/30 bg-white',
+    nav: 'text-white/80 hover:text-white',
+    search: 'border border-[#FBDB93]/30 bg-white/20 text-white placeholder-white/60',
+    cta: 'bg-[#FBDB93] text-[#641B2E] hover:bg-white',
+    post: 'border border-[#FBDB93]/30 bg-white/20 text-white hover:bg-white/30',
+    mobile: 'border-t border-[#BE5B50]/20 bg-[#FBDB93]',
   },
 } as const
 
@@ -125,8 +125,23 @@ export function Navbar() {
               </div>
             </Link>
 
-            <div className="hidden items-center gap-5 xl:flex">
-              {primaryNavigation.slice(0, 4).map((task) => {
+            <div className="hidden items-center gap-6 xl:flex">
+              <Link href="/" className={cn('text-sm font-semibold transition-colors', pathname === '/' ? 'text-foreground' : palette.nav)}>
+                Home
+              </Link>
+              <Link href="/updates" className={cn('text-sm font-semibold transition-colors', pathname.startsWith('/updates') ? 'text-foreground' : palette.nav)}>
+                Press Releases
+              </Link>
+              <Link href="/pricing" className={cn('text-sm font-semibold transition-colors', pathname.startsWith('/pricing') ? 'text-foreground' : palette.nav)}>
+                Pricing
+              </Link>
+              <Link href="/about" className={cn('text-sm font-semibold transition-colors', pathname.startsWith('/about') ? 'text-foreground' : palette.nav)}>
+                About
+              </Link>
+              <Link href="/contact" className={cn('text-sm font-semibold transition-colors', pathname.startsWith('/contact') ? 'text-foreground' : palette.nav)}>
+                Contact
+              </Link>
+              {primaryNavigation.slice(0, 2).map((task) => {
                 const isActive = pathname.startsWith(task.route)
                 return (
                   <Link key={task.key} href={task.route} className={cn('text-sm font-semibold transition-colors', isActive ? 'text-foreground' : palette.nav)}>
@@ -140,10 +155,10 @@ export function Navbar() {
           <div className="hidden min-w-0 flex-1 items-center justify-center lg:flex">
             <div className={cn('flex w-full max-w-xl items-center gap-3 rounded-full px-4 py-3', palette.search)}>
               <Search className="h-4 w-4" />
-              <span className="text-sm">Find businesses, spaces, and local services</span>
+              <span className="text-sm">Search press releases and news</span>
               <div className="ml-auto hidden items-center gap-1 text-xs opacity-75 md:flex">
-                <MapPin className="h-3.5 w-3.5" />
-                Local discovery
+                <FileText className="h-3.5 w-3.5" />
+                Media distribution
               </div>
             </div>
           </div>
@@ -166,7 +181,7 @@ export function Navbar() {
                 <Button size="sm" asChild className={cn('rounded-full', palette.cta)}>
                   <Link href="/register">
                     <Plus className="mr-1 h-4 w-4" />
-                    Add Listing
+                    Get Started
                   </Link>
                 </Button>
               </div>
@@ -183,17 +198,34 @@ export function Navbar() {
             <div className="space-y-2 px-4 py-4">
               <div className={cn('mb-3 flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium', palette.search)}>
                 <Search className="h-4 w-4" />
-                Find businesses, spaces, and services
+                Search press releases and news
               </div>
-              {mobileNavigation.map((item) => {
-                const isActive = pathname.startsWith(item.href)
-                return (
-                  <Link key={item.name} href={item.href} onClick={() => setIsMobileMenuOpen(false)} className={cn('flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-semibold transition-colors', isActive ? 'bg-foreground text-background' : palette.post)}>
-                    <item.icon className="h-5 w-5" />
-                    {item.name}
-                  </Link>
-                )
-              })}
+              <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className={cn('flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-semibold transition-colors', pathname === '/' ? 'bg-foreground text-background' : palette.post)}>
+                <LayoutGrid className="h-5 w-5" />
+                Home
+              </Link>
+              <Link href="/updates" onClick={() => setIsMobileMenuOpen(false)} className={cn('flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-semibold transition-colors', pathname.startsWith('/updates') ? 'bg-foreground text-background' : palette.post)}>
+                <FileText className="h-5 w-5" />
+                Press Releases
+              </Link>
+              <Link href="/pricing" onClick={() => setIsMobileMenuOpen(false)} className={cn('flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-semibold transition-colors', pathname.startsWith('/pricing') ? 'bg-foreground text-background' : palette.post)}>
+                <Tag className="h-5 w-5" />
+                Pricing
+              </Link>
+              <Link href="/about" onClick={() => setIsMobileMenuOpen(false)} className={cn('flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-semibold transition-colors', pathname.startsWith('/about') ? 'bg-foreground text-background' : palette.post)}>
+                <User className="h-5 w-5" />
+                About
+              </Link>
+              <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)} className={cn('flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-semibold transition-colors', pathname.startsWith('/contact') ? 'bg-foreground text-background' : palette.post)}>
+                <Mail className="h-5 w-5" />
+                Contact
+              </Link>
+              {mobileNavigation.map((item) => (
+                <Link key={item.name} href={item.href} onClick={() => setIsMobileMenuOpen(false)} className={cn('flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-semibold transition-colors', pathname.startsWith(item.href) ? 'bg-foreground text-background' : palette.post)}>
+                  <item.icon className="h-5 w-5" />
+                  {item.name}
+                </Link>
+              ))}
             </div>
           </div>
         )}
@@ -222,16 +254,31 @@ export function Navbar() {
 
           {isEditorial ? (
             <div className="hidden min-w-0 flex-1 items-center gap-4 xl:flex">
-              <div className="h-px flex-1 bg-[#d8c8bb]" />
-              {primaryNavigation.map((task) => {
+              <div className="h-px flex-1 bg-[#BE5B50]/30" />
+              <Link href="/" className={cn('text-sm font-semibold uppercase tracking-[0.18em] transition-colors', pathname === '/' ? 'text-[#641B2E]' : 'text-[#8A2D3B] hover:text-[#641B2E]')}>
+                Home
+              </Link>
+              <Link href="/updates" className={cn('text-sm font-semibold uppercase tracking-[0.18em] transition-colors', pathname.startsWith('/updates') ? 'text-[#641B2E]' : 'text-[#8A2D3B] hover:text-[#641B2E]')}>
+                Press Releases
+              </Link>
+              <Link href="/pricing" className={cn('text-sm font-semibold uppercase tracking-[0.18em] transition-colors', pathname.startsWith('/pricing') ? 'text-[#641B2E]' : 'text-[#8A2D3B] hover:text-[#641B2E]')}>
+                Pricing
+              </Link>
+              <Link href="/about" className={cn('text-sm font-semibold uppercase tracking-[0.18em] transition-colors', pathname.startsWith('/about') ? 'text-[#641B2E]' : 'text-[#8A2D3B] hover:text-[#641B2E]')}>
+                About
+              </Link>
+              <Link href="/contact" className={cn('text-sm font-semibold uppercase tracking-[0.18em] transition-colors', pathname.startsWith('/contact') ? 'text-[#641B2E]' : 'text-[#8A2D3B] hover:text-[#641B2E]')}>
+                Contact
+              </Link>
+              {primaryNavigation.slice(0, 2).map((task) => {
                 const isActive = pathname.startsWith(task.route)
                 return (
-                  <Link key={task.key} href={task.route} className={cn('text-sm font-semibold uppercase tracking-[0.18em] transition-colors', isActive ? 'text-[#2f1d16]' : 'text-[#7b6254] hover:text-[#2f1d16]')}>
+                  <Link key={task.key} href={task.route} className={cn('text-sm font-semibold uppercase tracking-[0.18em] transition-colors', isActive ? 'text-[#641B2E]' : 'text-[#8A2D3B] hover:text-[#641B2E]')}>
                     {task.label}
                   </Link>
                 )
               })}
-              <div className="h-px flex-1 bg-[#d8c8bb]" />
+              <div className="h-px flex-1 bg-[#BE5B50]/30" />
             </div>
           ) : isFloating ? (
             <div className="hidden min-w-0 flex-1 items-center gap-2 xl:flex">
@@ -309,7 +356,7 @@ export function Navbar() {
 
       {isFloating && primaryTask ? (
         <div className="mx-auto hidden max-w-7xl px-4 pb-3 sm:px-6 lg:block lg:px-8">
-          <Link href={primaryTask.route} className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/8 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-200 backdrop-blur hover:bg-white/12">
+          <Link href={primaryTask.route} className="inline-flex items-center gap-2 rounded-full border border-[#FBDB93]/20 bg-white/8 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#FBDB93] backdrop-blur hover:bg-white/12">
             Featured surface
             <span>{primaryTask.label}</span>
             <ChevronRight className="h-3.5 w-3.5" />
