@@ -7,39 +7,12 @@ import { getProductKind } from '@/design/factory/get-product-kind'
 import { CONTACT_PAGE_OVERRIDE_ENABLED, ContactPageOverride } from '@/overrides/contact-page'
 
 function getTone(kind: ReturnType<typeof getProductKind>) {
-  if (kind === 'directory') {
-    return {
-      shell: 'bg-[#FBDB93]/20 text-[#641B2E]',
-      panel: 'border border-[#BE5B50]/20 bg-white',
-      soft: 'border border-[#BE5B50]/15 bg-[#FBDB93]/30',
-      muted: 'text-[#8A2D3B]',
-      action: 'bg-[#BE5B50] text-white hover:bg-[#8A2D3B]',
-    }
-  }
-  if (kind === 'editorial') {
-    return {
-      shell: 'bg-[#FBDB93]/20 text-[#641B2E]',
-      panel: 'border border-[#BE5B50]/20 bg-white',
-      soft: 'border border-[#BE5B50]/15 bg-[#FBDB93]/30',
-      muted: 'text-[#8A2D3B]',
-      action: 'bg-[#BE5B50] text-[#FBDB93] hover:bg-[#8A2D3B]',
-    }
-  }
-  if (kind === 'visual') {
-    return {
-      shell: 'bg-[#641B2E] text-white',
-      panel: 'border border-[#FBDB93]/20 bg-white/10',
-      soft: 'border border-[#FBDB93]/15 bg-white/5',
-      muted: 'text-[#FBDB93]',
-      action: 'bg-[#BE5B50] text-white hover:bg-[#8A2D3B]',
-    }
-  }
   return {
-    shell: 'bg-[#FBDB93]/20 text-[#641B2E]',
-    panel: 'border border-[#BE5B50]/20 bg-white',
-    soft: 'border border-[#BE5B50]/15 bg-[#FBDB93]/30',
-    muted: 'text-[#8A2D3B]',
-    action: 'bg-[#BE5B50] text-[#FBDB93] hover:bg-[#8A2D3B]',
+    shell: 'bg-[#c90d3f] text-white',
+    panel: 'border border-purple-100 bg-white text-gray-900',
+    soft: 'border border-white/20 bg-white/10',
+    muted: 'text-white/80',
+    action: 'bg-black text-white hover:bg-black/85',
   }
 }
 
@@ -77,11 +50,11 @@ export default function ContactPage() {
             ]
 
   return (
-    <div className={`min-h-screen ${tone.shell}`}>
+    <div className="min-h-screen bg-white">
       <NavbarShell />
       <main className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <section className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
-          <div>
+          <div className={`rounded-[2rem] p-8 ${tone.shell}`}>
             <p className="text-xs font-semibold uppercase tracking-[0.24em] opacity-70">Contact {SITE_CONFIG.name}</p>
             <h1 className="mt-4 text-5xl font-semibold tracking-[-0.05em]">Press release distribution support that understands your needs.</h1>
             <p className={`mt-5 max-w-2xl text-sm leading-8 ${tone.muted}`}>Whether you need help with distribution, targeting, or campaign strategy, we'll connect you with the right experts to maximize your media reach.</p>
@@ -99,10 +72,10 @@ export default function ContactPage() {
           <div className={`rounded-[2rem] p-7 ${tone.panel}`}>
             <h2 className="text-2xl font-semibold">Send a message</h2>
             <form className="mt-6 grid gap-4">
-              <input className="h-12 rounded-xl border border-current/10 bg-transparent px-4 text-sm" placeholder="Your name" />
-              <input className="h-12 rounded-xl border border-current/10 bg-transparent px-4 text-sm" placeholder="Email address" />
-              <input className="h-12 rounded-xl border border-current/10 bg-transparent px-4 text-sm" placeholder="Company or organization" />
-              <textarea className="min-h-[180px] rounded-2xl border border-current/10 bg-transparent px-4 py-3 text-sm" placeholder="Tell us about your press release needs, campaign goals, or distribution requirements." />
+              <input className="h-12 rounded-xl border border-gray-200 bg-transparent px-4 text-sm" placeholder="Your name" />
+              <input className="h-12 rounded-xl border border-gray-200 bg-transparent px-4 text-sm" placeholder="Email address" />
+              <input className="h-12 rounded-xl border border-gray-200 bg-transparent px-4 text-sm" placeholder="Company or organization" />
+              <textarea className="min-h-[180px] rounded-2xl border border-gray-200 bg-transparent px-4 py-3 text-sm" placeholder="Tell us about your press release needs, campaign goals, or distribution requirements." />
               <button type="submit" className={`inline-flex h-12 items-center justify-center rounded-full px-6 text-sm font-semibold ${tone.action}`}>Send message</button>
             </form>
           </div>

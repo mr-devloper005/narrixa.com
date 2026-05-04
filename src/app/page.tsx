@@ -1,20 +1,13 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowRight, Bookmark, Building2, Compass, FileText, Globe2, Image as ImageIcon, LayoutGrid, MapPin, ShieldCheck, Tag, User } from 'lucide-react'
-import { ContentImage } from '@/components/shared/content-image'
+import { ArrowRight, Building2, CheckCircle2, ChevronDown, Globe2, MessageCircle, Phone, Play, Star, Users, Zap } from 'lucide-react'
 import { NavbarShell } from '@/components/shared/navbar-shell'
 import { Footer } from '@/components/shared/footer'
 import { SchemaJsonLd } from '@/components/seo/schema-jsonld'
-import { TaskPostCard } from '@/components/shared/task-post-card'
-import { SITE_CONFIG, type TaskKey } from '@/lib/site-config'
+import { SITE_CONFIG } from '@/lib/site-config'
 import { buildPageMetadata } from '@/lib/seo'
-import { fetchTaskPosts } from '@/lib/task-data'
 import { siteContent } from '@/config/site.content'
-import { getFactoryState } from '@/design/factory/get-factory-state'
-import { getProductKind, type ProductKind } from '@/design/factory/get-product-kind'
-import type { SitePost } from '@/lib/site-connector'
-import { getHomeEditorialMockPosts, mergeEditorialPostsForHome } from '@/lib/home-editorial-mock'
-import { HOME_PAGE_OVERRIDE_ENABLED, HomePageOverride } from '@/overrides/home-page'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 
 export const revalidate = 300
 
@@ -30,608 +23,398 @@ export async function generateMetadata(): Promise<Metadata> {
   })
 }
 
-type EnabledTask = (typeof SITE_CONFIG.tasks)[number]
-type TaskFeedItem = { task: EnabledTask; posts: SitePost[] }
+function HeroSection() {
+  return (
+    <section className="relative overflow-hidden bg-[#c90d3f] text-white">
+      <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[length:24px_24px] opacity-35" />
+      <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-24">
+        <div className="relative z-10 grid gap-10 lg:grid-cols-[1.25fr_0.95fr] lg:items-center">
+          <div>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-white/80">
+              Press release distribution
+            </p>
+            <h1 className="mt-4 max-w-3xl text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+              Reach journalists, readers, and search with wire-ready announcements.
+            </h1>
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/90">
+              A simple newsroom-style publication for announcements, coverage, and media updates on Pressly.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <Link
+                href="/register"
+                className="inline-flex items-center gap-2 rounded-full bg-black px-6 py-3 font-semibold text-white transition-colors hover:bg-black/85"
+              >
+                Submit a release
+              </Link>
+              <Link
+                href="/newsroom"
+                className="inline-flex items-center gap-2 rounded-full border border-white/50 bg-transparent px-6 py-3 font-semibold text-white transition-colors hover:bg-white/10"
+              >
+                Browse latest news
+              </Link>
+            </div>
+          </div>
 
-const taskIcons: Record<TaskKey, any> = {
-  article: FileText,
-  listing: Building2,
-  sbm: Bookmark,
-  classified: Tag,
-  image: ImageIcon,
-  profile: User,
-}
-
-function resolveTaskKey(value: unknown, fallback: TaskKey): TaskKey {
-  if (
-    value === 'listing' ||
-    value === 'classified' ||
-    value === 'article' ||
-    value === 'image' ||
-    value === 'profile' ||
-    value === 'sbm' ||
-    value === 'mediaDistribution'
+          <div className="relative">
+            <div className="relative overflow-hidden rounded-[2rem] border border-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.28)]">
+              <img
+                src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1000&h=620&fit=crop"
+                alt="Editorial team preparing announcements"
+                className="h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   )
-    return value
-  return fallback
 }
 
-function getTaskHref(task: TaskKey, slug: string) {
-  const route = SITE_CONFIG.tasks.find((item) => item.key === task)?.route || `/${task}`
-  return `${route}/${slug}`
+function CommunicationsTeamSection() {
+  return (
+    <section className="bg-gray-50 py-20">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <div className="inline-block">
+            <span className="text-sm font-semibold text-purple-600 uppercase tracking-wider">EDITORIAL CLARITY</span>
+          </div>
+          <h2 className="text-3xl font-bold text-gray-900 mb-4 mt-2">Built for Communications Teams</h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Whether you're managing PR in-house or working with agencies, our platform adapts to your workflow
+          </p>
+        </div>
+        <div className="grid gap-8 md:grid-cols-2">
+          <div className="group relative overflow-hidden rounded-2xl bg-white border border-purple-100 shadow-sm transition-transform hover:scale-105">
+            <div className="relative p-8 text-gray-900">
+              <h3 className="text-2xl font-bold mb-4">In-house Teams</h3>
+              <p className="text-gray-700 mb-6">
+                Complete control over your brand's narrative with dedicated newsrooms, analytics, and distribution tools.
+              </p>
+              <Link href="/about" className="inline-flex items-center gap-2 rounded-full bg-purple-600 text-white px-4 py-2 text-sm font-semibold hover:bg-purple-700 transition-colors">
+                Learn more
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </div>
+          <div className="group relative overflow-hidden rounded-2xl bg-white border border-purple-100 shadow-sm transition-transform hover:scale-105">
+            <div className="relative p-8 text-gray-900">
+              <h3 className="text-2xl font-bold mb-4">Agencies & Partners</h3>
+              <p className="text-gray-700 mb-6">
+                Manage multiple clients, streamline workflows, and deliver exceptional PR results with our agency features.
+              </p>
+              <Link href="/about" className="inline-flex items-center gap-2 rounded-full bg-purple-600 text-white px-4 py-2 text-sm font-semibold hover:bg-purple-700 transition-colors">
+                Learn more
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
 }
 
-function getPostImage(post?: SitePost | null) {
-  const media = Array.isArray(post?.media) ? post?.media : []
-  const mediaUrl = media.find((item) => typeof item?.url === 'string' && item.url)?.url
-  const contentImage = typeof post?.content === 'object' && post?.content && Array.isArray((post.content as any).images)
-    ? (post.content as any).images.find((url: unknown) => typeof url === 'string' && url)
-    : null
-  const logo = typeof post?.content === 'object' && post?.content && typeof (post.content as any).logo === 'string'
-    ? (post.content as any).logo
-    : null
-  return mediaUrl || contentImage || logo || '/placeholder.svg?height=900&width=1400'
+function DistributionFeaturesSection() {
+  return (
+    <section className="py-20 bg-white">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:items-center">
+          <div>
+            <div className="inline-block">
+              <span className="text-sm font-semibold text-purple-600 uppercase tracking-wider">FAST DISTRIBUTION</span>
+            </div>
+            <h2 className="text-3xl font-bold text-gray-900 mb-6 mt-2">
+              Distribution that stays readable end-to-end
+            </h2>
+            <div className="space-y-4">
+              {[
+                ['Instant Publishing', 'Your press releases go live immediately across all channels'],
+                ['Targeted Reach', 'Connect with journalists, media outlets, and your target audience'],
+                ['Analytics Dashboard', 'Track performance, engagement, and media pickup in real-time'],
+                ['SEO Optimization', 'Built-in SEO tools ensure maximum visibility and search ranking']
+              ].map(([title, description]) => (
+                <div key={title} className="flex gap-4">
+                  <div className="flex-shrink-0">
+                    <CheckCircle2 className="h-6 w-6 text-purple-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900">{title}</h3>
+                    <p className="text-gray-600">{description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="relative">
+            <div className="overflow-hidden rounded-2xl bg-purple-50 border border-purple-100 shadow-lg">
+              <div className="aspect-[16/9] relative">
+                <img
+                  src="https://img.freepik.com/free-photo/group-diverse-people-having-business-meeting_53876-25060.jpg"
+                  alt="Studio team planning content"
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-br from-black/45 to-purple-900/35"></div>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="mb-4 inline-flex items-center justify-center w-16 h-16 rounded-full bg-purple-600 text-white">
+                      <Play className="h-6 w-6" />
+                    </div>
+                    <div className="bg-white/90 backdrop-blur-sm rounded-lg px-4 py-2 mb-4">
+                      <p className="text-sm font-semibold text-gray-900">Studio walkthrough</p>
+                    </div>
+                    <Link href="/contact" className="inline-flex items-center gap-2 rounded-full bg-purple-600 px-4 py-2 text-sm font-semibold text-white hover:bg-purple-700 transition-colors">
+                      Watch demo
+                      <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
 }
 
-function getPostMeta(post?: SitePost | null) {
-  if (!post || typeof post.content !== 'object' || !post.content) return { location: '', category: '' }
-  const content = post.content as Record<string, unknown>
-  return {
-    location: typeof content.address === 'string' ? content.address : typeof content.location === 'string' ? content.location : '',
-    category: typeof content.category === 'string' ? content.category : typeof post.tags?.[0] === 'string' ? post.tags[0] : '',
-  }
-}
-
-function getDirectoryTone(brandPack: string) {
-  if (brandPack === 'market-utility') {
-    return {
-      shell: 'bg-[#f5f7f1] text-[#1f2617]',
-      hero: 'bg-[linear-gradient(180deg,#eef4e4_0%,#f8faf4_100%)]',
-      panel: 'border border-[#d5ddc8] bg-white shadow-[0_24px_64px_rgba(64,76,34,0.08)]',
-      soft: 'border border-[#d5ddc8] bg-[#eff3e7]',
-      muted: 'text-[#5b664c]',
-      title: 'text-[#1f2617]',
-      badge: 'bg-[#1f2617] text-[#edf5dc]',
-      action: 'bg-[#1f2617] text-[#edf5dc] hover:bg-[#2f3a24]',
-      actionAlt: 'border border-[#d5ddc8] bg-white text-[#1f2617] hover:bg-[#eef3e7]',
+function IndustryCategoriesSection() {
+  const categories = [
+    {
+      title: 'Technology & AI',
+      image: 'https://img.magnific.com/free-photo/happy-businesswoman-communicating-with-her-colleague-while-being-meeting-office_637285-6993.jpg',
+      overlay: 'from-black/60 to-black/80'
+    },
+    {
+      title: 'Finance & Markets',
+      image: 'https://img.magnific.com/free-photo/young-worker-leading-business-meeting-about-cryptocurrencies-office_1268-21489.jpg',
+      overlay: 'from-black/60 to-black/80'
+    },
+    {
+      title: 'Health & Science',
+      image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400&h=300&fit=crop',
+      overlay: 'from-black/60 to-black/80'
+    },
+    {
+      title: 'Lifestyle & Culture',
+      image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=300&fit=crop',
+      overlay: 'from-black/60 to-black/80'
     }
-  }
-  return {
-    shell: 'bg-[#f8fbff] text-slate-950',
-    hero: 'bg-[linear-gradient(180deg,#eef6ff_0%,#ffffff_100%)]',
-    panel: 'border border-slate-200 bg-white shadow-[0_24px_64px_rgba(15,23,42,0.08)]',
-    soft: 'border border-slate-200 bg-slate-50',
-    muted: 'text-slate-600',
-    title: 'text-slate-950',
-    badge: 'bg-slate-950 text-white',
-    action: 'bg-slate-950 text-white hover:bg-slate-800',
-    actionAlt: 'border border-slate-200 bg-white text-slate-950 hover:bg-slate-100',
-  }
-}
-
-function getEditorialTone() {
-  return {
-    shell: 'bg-[#FBDB93] text-[#641B2E]',
-    panel: 'border border-[#BE5B50]/20 bg-white shadow-[0_24px_60px_rgba(190,91,80,0.08)]',
-    soft: 'border border-[#BE5B50]/15 bg-[#FBDB93]/30',
-    muted: 'text-[#8A2D3B]',
-    title: 'text-[#641B2E]',
-    badge: 'bg-[#BE5B50] text-[#FBDB93]',
-    action: 'bg-[#BE5B50] text-[#FBDB93] hover:bg-[#8A2D3B]',
-    actionAlt: 'border border-[#BE5B50]/30 bg-transparent text-[#641B2E] hover:bg-[#FBDB93]/50',
-  }
-}
-
-function getVisualTone() {
-  return {
-    shell: 'bg-[#07101f] text-white',
-    panel: 'border border-white/10 bg-[rgba(11,18,31,0.78)] shadow-[0_28px_80px_rgba(0,0,0,0.35)]',
-    soft: 'border border-white/10 bg-white/6',
-    muted: 'text-slate-300',
-    title: 'text-white',
-    badge: 'bg-[#8df0c8] text-[#07111f]',
-    action: 'bg-[#8df0c8] text-[#07111f] hover:bg-[#77dfb8]',
-    actionAlt: 'border border-white/10 bg-white/6 text-white hover:bg-white/10',
-  }
-}
-
-function getCurationTone() {
-  return {
-    shell: 'bg-[#f7f1ea] text-[#261811]',
-    panel: 'border border-[#ddcdbd] bg-[#fffaf4] shadow-[0_24px_60px_rgba(91,56,37,0.08)]',
-    soft: 'border border-[#e8dbce] bg-[#f3e8db]',
-    muted: 'text-[#71574a]',
-    title: 'text-[#261811]',
-    badge: 'bg-[#5b2b3b] text-[#fff0f5]',
-    action: 'bg-[#5b2b3b] text-[#fff0f5] hover:bg-[#74364b]',
-    actionAlt: 'border border-[#ddcdbd] bg-transparent text-[#261811] hover:bg-[#efe3d6]',
-  }
-}
-
-function DirectoryHome({ primaryTask, enabledTasks, listingPosts, classifiedPosts, profilePosts, brandPack }: {
-  primaryTask?: EnabledTask
-  enabledTasks: EnabledTask[]
-  listingPosts: SitePost[]
-  classifiedPosts: SitePost[]
-  profilePosts: SitePost[]
-  brandPack: string
-}) {
-  const tone = getDirectoryTone(brandPack)
-  const featuredListings = (listingPosts.length ? listingPosts : classifiedPosts).slice(0, 3)
-  const featuredTaskKey: TaskKey = listingPosts.length ? 'listing' : 'classified'
-  const quickRoutes = enabledTasks.slice(0, 4)
+  ]
 
   return (
-    <main>
-      <section className={tone.hero}>
-        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-18">
-          <div className="grid gap-8 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
-            <div>
-              <span className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] ${tone.badge}`}>
-                <Compass className="h-3.5 w-3.5" />
-                Local discovery product
-              </span>
-              <h1 className={`mt-6 max-w-4xl text-5xl font-semibold tracking-[-0.06em] sm:text-6xl ${tone.title}`}>
-                Search businesses, compare options, and act fast without digging through generic feeds.
-              </h1>
-              <p className={`mt-6 max-w-2xl text-base leading-8 ${tone.muted}`}>{SITE_CONFIG.description}</p>
-
-              <div className={`mt-8 grid gap-3 rounded-[2rem] p-4 ${tone.panel} md:grid-cols-[1.25fr_0.8fr_auto]`}>
-                <div className="rounded-full bg-black/5 px-4 py-3 text-sm">What do you need today?</div>
-                <div className="rounded-full bg-black/5 px-4 py-3 text-sm">Choose area or city</div>
-                <Link href={primaryTask?.route || '/listings'} className={`inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold ${tone.action}`}>
-                  Browse now
+    <section className="py-20 bg-gray-50">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <div className="inline-block">
+            <span className="text-sm font-semibold text-purple-600 uppercase tracking-wider">MOBILE-FIRST</span>
+          </div>
+          <h2 className="text-3xl font-bold text-gray-900 mb-4 mt-2">Industry Categories</h2>
+          <p className="text-lg text-gray-600">
+            Specialized distribution for every industry vertical
+          </p>
+        </div>
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {categories.map((category) => (
+            <div key={category.title} className="group relative overflow-hidden rounded-2xl transition-transform hover:scale-105">
+              <div className="aspect-[4/3] relative">
+                <img 
+                  src={category.image} 
+                  alt={category.title}
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                <div className={`absolute inset-0 bg-gradient-to-br ${category.overlay}`}></div>
+              </div>
+              <div className="absolute bottom-0 left-0 right-0 p-6">
+                <h3 className="text-xl font-bold text-white mb-2">{category.title}</h3>
+                <Link href="/newsroom" className="inline-flex items-center gap-2 text-sm font-semibold text-white hover:text-white/80 transition-colors">
+                  View newsroom
                   <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
-
-              <div className="mt-8 grid gap-3 sm:grid-cols-3">
-                {[
-                  ['Verified businesses', `${featuredListings.length || 3}+ highlighted surfaces`],
-                  ['Fast scan rhythm', 'More utility, less filler'],
-                  ['Action first', 'Call, visit, shortlist, compare'],
-                ].map(([label, value]) => (
-                  <div key={label} className={`rounded-[1.4rem] p-4 ${tone.soft}`}>
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.22em] opacity-70">{label}</p>
-                    <p className="mt-2 text-lg font-semibold">{value}</p>
-                  </div>
-                ))}
-              </div>
             </div>
-
-            <div className="grid gap-4">
-              <div className={`rounded-[2rem] p-6 ${tone.panel}`}>
-                <div className="flex items-center justify-between gap-4">
-                  <div>
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.22em] opacity-70">Primary lane</p>
-                    <h2 className="mt-2 text-3xl font-semibold">{primaryTask?.label || 'Listings'}</h2>
-                  </div>
-                  <ShieldCheck className="h-6 w-6" />
-                </div>
-                <p className={`mt-4 text-sm leading-7 ${tone.muted}`}>{primaryTask?.description || 'Structured discovery for services, offers, and business surfaces.'}</p>
-              </div>
-
-              <div className="grid gap-4 sm:grid-cols-2">
-                {quickRoutes.map((task) => {
-                  const Icon = taskIcons[task.key as TaskKey] || LayoutGrid
-                  return (
-                    <Link key={task.key} href={task.route} className={`rounded-[1.6rem] p-5 ${tone.soft}`}>
-                      <Icon className="h-5 w-5" />
-                      <h3 className="mt-4 text-lg font-semibold">{task.label}</h3>
-                      <p className={`mt-2 text-sm leading-7 ${tone.muted}`}>{task.description}</p>
-                    </Link>
-                  )
-                })}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-        <div className="flex items-end justify-between gap-4 border-b border-border pb-6">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-muted-foreground">Featured businesses</p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em]">Strong listings with clearer trust cues.</h2>
-          </div>
-          <Link href="/listings" className="text-sm font-semibold text-primary hover:opacity-80">Open listings</Link>
-        </div>
-        <div className="mt-8 grid gap-6 lg:grid-cols-3">
-          {featuredListings.map((post) => (
-            <TaskPostCard key={post.id} post={post} href={getTaskHref(featuredTaskKey, post.slug)} taskKey={featuredTaskKey} />
           ))}
         </div>
-      </section>
-
-      <section className={`${tone.shell}`}>
-        <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.92fr_1.08fr] lg:px-8">
-          <div className={`rounded-[2rem] p-7 ${tone.panel}`}>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] opacity-70">What makes this different</p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em]">Built like a business directory, not a recolored content site.</h2>
-            <ul className={`mt-6 space-y-3 text-sm leading-7 ${tone.muted}`}>
-              <li>Search-first hero instead of a magazine headline.</li>
-              <li>Action-oriented listing cards with trust metadata.</li>
-              <li>Support lanes for offers, businesses, and profiles.</li>
-            </ul>
-          </div>
-          <div className="grid gap-4 md:grid-cols-2">
-            {(profilePosts.length ? profilePosts : classifiedPosts).slice(0, 4).map((post) => {
-              const meta = getPostMeta(post)
-              const taskKey = resolveTaskKey(post.task, profilePosts.length ? 'profile' : 'classified')
-              return (
-                <Link key={post.id} href={getTaskHref(taskKey, post.slug)} className={`overflow-hidden rounded-[1.8rem] ${tone.panel}`}>
-                  <div className="relative h-44 overflow-hidden">
-                    <ContentImage src={getPostImage(post)} alt={post.title} fill className="object-cover" />
-                  </div>
-                  <div className="p-5">
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.24em] opacity-70">{meta.category || post.task || 'Profile'}</p>
-                    <h3 className="mt-2 text-xl font-semibold">{post.title}</h3>
-                    <p className={`mt-2 text-sm leading-7 ${tone.muted}`}>{post.summary || 'Quick access to local information and related surfaces.'}</p>
-                  </div>
-                </Link>
-              )
-            })}
-          </div>
-        </div>
-      </section>
-    </main>
+      </div>
+    </section>
   )
 }
 
-function splitIntoTwoParagraphs(text: string) {
-  const t = text.trim()
-  if (!t) return ['', '']
-  const splitAt = t.search(/\.\s+[A-Z]/)
-  if (splitAt > 80) {
-    return [t.slice(0, splitAt + 1).trim(), t.slice(splitAt + 1).trim()]
-  }
-  const half = Math.floor(t.length / 2)
-  const space = t.lastIndexOf(' ', half + 40)
-  if (space > 40) return [t.slice(0, space).trim(), t.slice(space).trim()]
-  return [t, '']
+function CTASection() {
+  return (
+    <section className="py-20 bg-gradient-to-br from-purple-600 to-purple-700 text-white">
+      <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+        <div className="mb-8 inline-flex items-center justify-center w-16 h-16 rounded-full bg-white/20">
+          <Phone className="h-8 w-8" />
+        </div>
+        <h2 className="text-3xl font-bold mb-4">Talk with our distribution desk</h2>
+        <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto">
+          Get personalized guidance on your press release strategy and distribution needs
+        </p>
+        <Link href="/contact" className="inline-flex items-center gap-2 rounded-full bg-white text-purple-600 px-6 py-3 font-semibold hover:bg-white/90 transition-colors">
+          Contact Us
+          <ArrowRight className="h-4 w-4" />
+        </Link>
+      </div>
+    </section>
+  )
 }
 
-function getPostCategoryLabel(post: SitePost): string {
-  const content =
-    post.content && typeof post.content === 'object' ? (post.content as Record<string, unknown>) : {}
-  const cat = content.category
-  if (typeof cat === 'string' && cat.trim()) return cat.trim()
-  const tag = post.tags?.find((t) => typeof t === 'string' && t !== 'mediaDistribution' && t !== 'article')
-  if (typeof tag === 'string') return tag
-  return 'Update'
+function RecentPressReleasesSection() {
+  return (
+    <section className="py-20 bg-gray-50">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <h2 className="text-3xl font-bold text-gray-900 mb-8">Recent Press Releases</h2>
+        <div className="grid gap-6 lg:grid-cols-3">
+          <div className="lg:col-span-2">
+            <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow border border-purple-100">
+              <div className="aspect-[16/9] relative">
+                <img 
+                  src="https://img.magnific.com/free-photo/long-shot-business-people-meeting_23-2148427153.jpg"
+                  alt="Business people meeting"
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-br from-black/40 to-black/60"></div>
+              </div>
+              <div className="p-6">
+                <div className="flex items-center gap-4 mb-4">
+                  <span className="rounded-full bg-purple-100 px-3 py-1 text-sm font-semibold text-purple-900">
+                    Company Update
+                  </span>
+                  <span className="text-sm text-gray-500">2 hours ago</span>
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                  Pressly Announces Revolutionary AI-Powered Press Release Distribution Platform
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  Leading PR technology company unveils next-generation distribution platform that leverages artificial intelligence to optimize press release reach and engagement across global media networks.
+                </p>
+                <Link href="/newsroom" className="inline-flex items-center gap-2 text-purple-600 font-semibold hover:text-purple-700 transition-colors">
+                  Read more
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+            </div>
+          </div>
+          <div className="space-y-4">
+            {[
+              ['Product Launch', 'New Features Enhance User Experience'],
+              ['Partnership', 'Strategic Alliance with Global Media Network'],
+              ['Award', 'Recognized as Top PR Technology Platform']
+            ].map(([category, title]) => (
+              <div key={title} className="bg-white rounded-xl p-4 shadow hover:shadow-md transition-shadow border border-purple-100">
+                <span className="rounded-full bg-purple-100 px-2 py-1 text-xs font-semibold text-purple-700">
+                  {category}
+                </span>
+                <h4 className="font-semibold text-gray-900 mt-2">{title}</h4>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
 }
 
-function EditorialHome({
-  primaryTask,
-  posts,
-  supportTasks,
-}: {
-  primaryTask?: EnabledTask
-  posts: SitePost[]
-  supportTasks: EnabledTask[]
-}) {
-  const tone = getEditorialTone()
-  const defaultEditorialTask: TaskKey =
-    primaryTask?.key === 'mediaDistribution' || primaryTask?.key === 'article'
-      ? primaryTask.key
-      : 'article'
-
-  const postHref = (post: SitePost) =>
-    getTaskHref(resolveTaskKey((post as { task?: unknown }).task, defaultEditorialTask), post.slug)
-
-  const lead = posts[0]
-  const spotlightPosts = posts.slice(1, 4)
-  const deckPosts = posts.slice(10, 16)
-  const featuredSecondary = posts[1]
-
-  const headline = lead?.title || SITE_CONFIG.name
-  const summarySource = lead?.summary || SITE_CONFIG.description
-  const [bodyA, bodyB] = splitIntoTwoParagraphs(summarySource)
-  const secondParagraph = bodyB || SITE_CONFIG.tagline
+function FAQSection() {
+  const faqs = [
+    {
+      question: "How quickly do releases appear?",
+      answer: "Press releases go live immediately upon publishing. Distribution to media outlets and journalists begins within minutes, ensuring your news reaches the right audience without delay."
+    },
+    {
+      question: "Can we organize releases by topic?",
+      answer: "Yes! Our platform allows you to categorize press releases by topics, industries, campaigns, and custom tags. Create dedicated newsrooms for different aspects of your business."
+    },
+    {
+      question: "Do article pages support sharing?",
+      answer: "Absolutely. Every press release includes built-in social sharing buttons, direct link sharing, and embed options. Readers can easily share your news across all major social platforms."
+    },
+    {
+      question: "Where should teams start with pricing?",
+      answer: "We offer flexible pricing based on your needs. Start with our free tier to explore features, then scale as your distribution needs grow. Contact our sales team for custom enterprise solutions."
+    }
+  ]
 
   return (
-    <main className={`${tone.shell}`}>
-      <div className="mx-auto min-h-screen max-w-[1400px] border-x border-[#BE5B50]/15 bg-white shadow-[0_0_0_1px_rgba(190,91,80,0.08)]">
-        <section className="px-5 py-12 sm:px-8 sm:py-16 lg:px-12 lg:py-20">
-          <div className="grid gap-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-10 lg:items-start">
-            {/* Left: lead story — headings + highlighted body */}
-            <div className="order-1 max-w-xl lg:pt-2">
-              <p className="font-display text-[2.15rem] font-medium leading-[1.05] tracking-[-0.04em] sm:text-5xl text-[#641B2E]">
-                {SITE_CONFIG.name}
-              </p>
-              <p className="mt-4 max-w-md text-[0.95rem] leading-relaxed text-[#8A2D3B]">{SITE_CONFIG.tagline}</p>
+    <section className="py-20 bg-white">
+      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
+          <p className="text-lg text-gray-600">
+            Everything you need to know about our press release distribution platform
+          </p>
+        </div>
+        <Accordion type="single" collapsible className="space-y-4">
+          {faqs.map((faq, index) => (
+            <AccordionItem key={index} value={`item-${index}`} className="bg-white rounded-xl px-6 border border-purple-200">
+              <AccordionTrigger className="text-left font-semibold text-gray-900 hover:text-purple-600">
+                {faq.question}
+              </AccordionTrigger>
+              <AccordionContent className="text-gray-600 pt-4">
+                {faq.answer}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </div>
+    </section>
+  )
+}
 
-              <p className="mt-6 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#8A2D3B]">
-                {lead ? getPostCategoryLabel(lead) : 'Featured'}
-              </p>
-              <h1 className="font-display mt-3 text-[2.35rem] font-medium leading-[1.08] tracking-[-0.035em] text-[#641B2E] sm:text-5xl lg:text-[2.75rem]">
-                <span className="decoration-[#BE5B50]/35 underline decoration-2 underline-offset-[0.18em]">{headline}</span>
-              </h1>
+function TestimonialsSection() {
+  const testimonials = [
+    {
+      name: "Sarah Chen",
+      role: "Communications Director, TechCorp",
+      content: "Pressly transformed how we handle press releases. The distribution is instant and the analytics give us insights we never had before.",
+      rating: 5
+    },
+    {
+      name: "Michael Rodriguez",
+      role: "PR Agency Founder",
+      content: "Managing multiple clients has never been easier. The platform's efficiency and reach have helped us deliver exceptional results for our clients.",
+      rating: 5
+    },
+    {
+      name: "Emily Watson",
+      role: "Marketing Manager, StartupXYZ",
+      content: "The AI-powered distribution helped our startup get featured in major publications. It's like having a PR team working 24/7.",
+      rating: 5
+    }
+  ]
 
-              <div className="mt-8 space-y-5 rounded-r-xl border-l-4 border-[#BE5B50] bg-[#FBDB93]/20 py-4 pl-5 pr-4 text-[0.98rem] leading-[1.75] text-[#641B2E]">
-                {bodyA ? <p>{bodyA}</p> : null}
-                {secondParagraph ? <p className="text-[#8A2D3B]">{secondParagraph}</p> : null}
-              </div>
-
-              {featuredSecondary ? (
-                <Link
-                  href={postHref(featuredSecondary)}
-                  className="mt-10 block max-w-lg border-t border-[#BE5B50]/20 pt-8 transition-colors hover:bg-[#FBDB93]/20"
-                >
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#8A2D3B]">Also this week</p>
-                  <p className="font-display mt-2 text-lg font-semibold leading-snug text-[#641B2E]">
-                    {featuredSecondary.title}
-                  </p>
-                  {featuredSecondary.summary ? (
-                    <p className="mt-3 rounded-md bg-[#FBDB93]/40 px-3 py-2 text-sm leading-relaxed text-[#641B2E] ring-1 ring-[#BE5B50]/30">
-                      {featuredSecondary.summary}
-                    </p>
-                  ) : null}
-                </Link>
-              ) : (
-                <div className="mt-10 border-t border-[#BE5B50]/20 pt-8">
-                  <Link
-                    href={primaryTask?.route || '/articles'}
-                    className={`inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold ${tone.action}`}
-                  >
-                    {primaryTask?.label || 'Browse'}
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </div>
-              )}
-            </div>
-
-            {/* Center: spotlight stack — text-only cards */}
-            <div className="order-3 flex flex-col gap-5 lg:order-2">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#8A2D3B]">Spotlight</p>
-              {spotlightPosts.length ? (
-                spotlightPosts.map((post, i) => (
-                  <Link
-                    key={post.id}
-                    href={postHref(post)}
-                    className="group rounded-xl border border-[#BE5B50]/15 bg-white p-5 shadow-sm transition hover:border-[#BE5B50]/40 hover:shadow-md"
-                  >
-                    <span className="text-[10px] font-bold tabular-nums text-[#BE5B50]/80">{String(i + 1).padStart(2, '0')}</span>
-                    <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#8A2D3B]">
-                      {getPostCategoryLabel(post)}
-                    </p>
-                    <h2 className="font-display mt-2 text-xl font-semibold leading-snug text-[#641B2E] group-hover:text-[#BE5B50]">
-                      {post.title}
-                    </h2>
-                    {post.summary ? (
-                      <p className="mt-3 border-l-2 border-[#BE5B50]/50 pl-3 text-sm leading-relaxed text-[#8A2D3B]">{post.summary}</p>
-                    ) : null}
-                  </Link>
-                ))
-              ) : (
-                <p className="text-sm text-[#8A2D3B]">More stories will appear here.</p>
-              )}
-            </div>
-
-          </div>
-
-          {/* Heavy grid — more dummy / real cards, content-forward */}
-          {deckPosts.length ? (
-            <div className="mt-16 border-t border-[#BE5B50]/20 pt-14">
-              <h2 className="font-display text-2xl font-semibold tracking-[-0.02em] text-[#641B2E] sm:text-3xl">
-                <span className="bg-[linear-gradient(transparent_65%,rgba(190,91,80,0.15)_0)]">From the desk</span>
-              </h2>
-              <p className="mt-2 max-w-2xl text-sm text-[#8A2D3B]">
-                Longer summaries stay on the home page for scan-friendly reading. When your CMS feed is connected, these rows fill automatically from published posts.
-              </p>
-              <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {deckPosts.map((post) => (
-                  <Link
-                    key={post.id}
-                    href={postHref(post)}
-                    className="flex h-full flex-col rounded-2xl border border-[#BE5B50]/15 bg-white p-6 shadow-[0_8px_30px_rgba(190,91,80,0.06)] transition hover:border-[#BE5B50]/35 hover:shadow-[0_12px_40px_rgba(190,91,80,0.1)]"
-                  >
-                    <span className="w-fit rounded-full bg-[#BE5B50]/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#BE5B50]">
-                      {getPostCategoryLabel(post)}
-                    </span>
-                    <h3 className="font-display mt-4 text-xl font-semibold leading-snug text-[#641B2E]">{post.title}</h3>
-                    {post.summary ? (
-                      <p className="mt-4 grow rounded-lg bg-[#FBDB93]/30 px-3 py-3 text-sm leading-[1.65] text-[#641B2E] ring-1 ring-[#BE5B50]/20">
-                        {post.summary}
-                      </p>
-                    ) : null}
-                  </Link>
+  return (
+    <section className="py-20">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">What Our Clients Say</h2>
+          <p className="text-lg text-gray-600">
+            Trusted by communications teams and agencies worldwide
+          </p>
+        </div>
+        <div className="grid gap-8 md:grid-cols-3">
+          {testimonials.map((testimonial) => (
+            <div key={testimonial.name} className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow">
+              <div className="flex mb-4">
+                {[...Array(testimonial.rating)].map((_, i) => (
+                  <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
                 ))}
               </div>
+              <p className="text-gray-700 mb-6 italic">"{testimonial.content}"</p>
+              <div>
+                <p className="font-semibold text-gray-900">{testimonial.name}</p>
+                <p className="text-gray-600">{testimonial.role}</p>
+              </div>
             </div>
-          ) : null}
-
-          {supportTasks.length ? (
-            <div className="mt-16 grid gap-4 border-t border-[#BE5B50]/20 pt-12 sm:grid-cols-2 lg:grid-cols-3">
-              {supportTasks.slice(0, 3).map((task) => (
-                <Link
-                  key={task.key}
-                  href={task.route}
-                  className="rounded-xl border border-[#BE5B50]/15 bg-[#FBDB93]/20 px-5 py-4 transition hover:bg-[#FBDB93]/40"
-                >
-                  <h3 className="font-display text-lg font-medium text-[#641B2E]">{task.label}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-[#8A2D3B]">{task.description}</p>
-                </Link>
-              ))}
-            </div>
-          ) : null}
-        </section>
-
-        <div
-          className="h-4 w-full"
-          style={{
-            background:
-              'repeating-linear-gradient(90deg, #641B2E 0px, #641B2E 3px, #FBDB93 3px, #FBDB93 5px, #BE5B50 5px, #BE5B50 8px, #FBDB93 8px, #FBDB93 11px)',
-          }}
-          aria-hidden
-        />
+          ))}
+        </div>
       </div>
-    </main>
-  )
-}
-
-function VisualHome({ primaryTask, imagePosts, profilePosts, articlePosts }: { primaryTask?: EnabledTask; imagePosts: SitePost[]; profilePosts: SitePost[]; articlePosts: SitePost[] }) {
-  const tone = getVisualTone()
-  const gallery = imagePosts.length ? imagePosts.slice(0, 5) : articlePosts.slice(0, 5)
-  const creators = profilePosts.slice(0, 3)
-
-  return (
-    <main className={tone.shell}>
-      <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-18">
-        <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
-          <div>
-            <span className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] ${tone.badge}`}>
-              <ImageIcon className="h-3.5 w-3.5" />
-              Visual publishing system
-            </span>
-            <h1 className={`mt-6 max-w-4xl text-5xl font-semibold tracking-[-0.06em] sm:text-6xl ${tone.title}`}>
-              Image-led discovery with creator profiles and a more gallery-like browsing rhythm.
-            </h1>
-            <p className={`mt-6 max-w-2xl text-base leading-8 ${tone.muted}`}>{SITE_CONFIG.description}</p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link href={primaryTask?.route || '/images'} className={`inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold ${tone.action}`}>
-                Open gallery
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-              <Link href="/profile" className={`inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold ${tone.actionAlt}`}>
-                Meet creators
-              </Link>
-            </div>
-          </div>
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
-            {gallery.slice(0, 5).map((post, index) => (
-              <Link
-                key={post.id}
-                href={getTaskHref(resolveTaskKey(post.task, 'image'), post.slug)}
-                className={index === 0 ? `col-span-2 row-span-2 overflow-hidden rounded-[2.4rem] ${tone.panel}` : `overflow-hidden rounded-[1.8rem] ${tone.soft}`}
-              >
-                <div className={index === 0 ? 'relative h-[360px]' : 'relative h-[170px]'}>
-                  <ContentImage src={getPostImage(post)} alt={post.title} fill className="object-cover" />
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-
-        <div className="mt-12 grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
-          <div className={`rounded-[2rem] p-7 ${tone.panel}`}>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] opacity-70">Visual notes</p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em]">Larger media surfaces, fewer boxes, stronger pacing.</h2>
-            <p className={`mt-4 max-w-2xl text-sm leading-8 ${tone.muted}`}>This product avoids business-directory density and publication framing. The homepage behaves more like a visual board, with profile surfaces and imagery leading the experience.</p>
-          </div>
-          <div className="grid gap-4 md:grid-cols-3">
-            {creators.map((post) => (
-              <Link key={post.id} href={`/profile/${post.slug}`} className={`rounded-[1.8rem] p-5 ${tone.soft}`}>
-                <div className="relative h-40 overflow-hidden rounded-[1.2rem]">
-                  <ContentImage src={getPostImage(post)} alt={post.title} fill className="object-cover" />
-                </div>
-                <h3 className="mt-4 text-lg font-semibold">{post.title}</h3>
-                <p className={`mt-2 text-sm leading-7 ${tone.muted}`}>{post.summary || 'Creator profile and visual identity surface.'}</p>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-    </main>
-  )
-}
-
-function CurationHome({ primaryTask, bookmarkPosts, profilePosts, articlePosts }: { primaryTask?: EnabledTask; bookmarkPosts: SitePost[]; profilePosts: SitePost[]; articlePosts: SitePost[] }) {
-  const tone = getCurationTone()
-  const collections = bookmarkPosts.length ? bookmarkPosts.slice(0, 4) : articlePosts.slice(0, 4)
-  const people = profilePosts.slice(0, 3)
-
-  return (
-    <main className={tone.shell}>
-      <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-18">
-        <div className="grid gap-8 lg:grid-cols-[1fr_1fr] lg:items-start">
-          <div>
-            <span className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] ${tone.badge}`}>
-              <Bookmark className="h-3.5 w-3.5" />
-              Curated collections
-            </span>
-            <h1 className={`mt-6 max-w-4xl text-5xl font-semibold tracking-[-0.06em] sm:text-6xl ${tone.title}`}>
-              Save, organize, and revisit resources through shelves, boards, and curated collections.
-            </h1>
-            <p className={`mt-6 max-w-2xl text-base leading-8 ${tone.muted}`}>{SITE_CONFIG.description}</p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link href={primaryTask?.route || '/sbm'} className={`inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold ${tone.action}`}>
-                Open collections
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-              <Link href="/profile" className={`inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold ${tone.actionAlt}`}>
-                Explore curators
-              </Link>
-            </div>
-          </div>
-
-          <div className="grid gap-4 md:grid-cols-2">
-            {collections.map((post) => (
-              <Link key={post.id} href={getTaskHref(resolveTaskKey(post.task, 'sbm'), post.slug)} className={`rounded-[1.8rem] p-6 ${tone.panel}`}>
-                <p className="text-xs font-semibold uppercase tracking-[0.24em] opacity-70">Collection</p>
-                <h3 className="mt-3 text-2xl font-semibold">{post.title}</h3>
-                <p className={`mt-3 text-sm leading-8 ${tone.muted}`}>{post.summary || 'A calmer bookmark surface with room for context and grouping.'}</p>
-              </Link>
-            ))}
-          </div>
-        </div>
-
-        <div className="mt-12 grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
-          <div className={`rounded-[2rem] p-7 ${tone.panel}`}>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] opacity-70">Why this feels different</p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em]">More like saved boards and reading shelves than a generic post feed.</h2>
-            <p className={`mt-4 max-w-2xl text-sm leading-8 ${tone.muted}`}>The structure is calmer, the cards are less noisy, and the page encourages collecting and returning instead of forcing everything into a fast-scrolling list.</p>
-          </div>
-          <div className="grid gap-4 md:grid-cols-3">
-            {people.map((post) => (
-              <Link key={post.id} href={`/profile/${post.slug}`} className={`rounded-[1.8rem] p-5 ${tone.soft}`}>
-                <div className="relative h-32 overflow-hidden rounded-[1.2rem]">
-                  <ContentImage src={getPostImage(post)} alt={post.title} fill className="object-cover" />
-                </div>
-                <h3 className="mt-4 text-lg font-semibold">{post.title}</h3>
-                <p className={`mt-2 text-sm leading-7 ${tone.muted}`}>Curator profile, saved resources, and collection notes.</p>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-    </main>
+    </section>
   )
 }
 
 export default async function HomePage() {
-  if (HOME_PAGE_OVERRIDE_ENABLED) {
-    return <HomePageOverride />
-  }
-
-  const enabledTasks = SITE_CONFIG.tasks.filter((task) => task.enabled)
-  const { recipe } = getFactoryState()
-  const productKind = getProductKind(recipe)
-  const taskFeed: TaskFeedItem[] = (
-    await Promise.all(
-      enabledTasks.map(async (task) => ({
-        task,
-        posts: await fetchTaskPosts(task.key, 6, { allowMockFallback: false, fresh: false, revalidate: 120 }),
-      }))
-    )
-  ).filter(({ posts }) => posts.length)
-
-  const primaryTask = enabledTasks.find((task) => task.key === recipe.primaryTask) || enabledTasks[0]
-  const supportTasks = enabledTasks.filter((task) => task.key !== primaryTask?.key)
-  const listingPosts = taskFeed.find(({ task }) => task.key === 'listing')?.posts || []
-  const classifiedPosts = taskFeed.find(({ task }) => task.key === 'classified')?.posts || []
-  const articlePosts = taskFeed.find(({ task }) => task.key === 'article')?.posts || []
-  const mediaDistributionPosts =
-    taskFeed.find(({ task }) => task.key === 'mediaDistribution')?.posts || []
-  const editorialRaw = articlePosts.length ? articlePosts : mediaDistributionPosts
-  const editorialPosts =
-    editorialRaw.length > 0
-      ? editorialRaw.slice(0, 16)
-      : mergeEditorialPostsForHome(editorialRaw, getHomeEditorialMockPosts(), 16)
-  const imagePosts = taskFeed.find(({ task }) => task.key === 'image')?.posts || []
-  const profilePosts = taskFeed.find(({ task }) => task.key === 'profile')?.posts || []
-  const bookmarkPosts = taskFeed.find(({ task }) => task.key === 'sbm')?.posts || []
-
   const schemaData = [
     {
       '@context': 'https://schema.org',
@@ -658,25 +441,16 @@ export default async function HomePage() {
     <div className="min-h-screen bg-background text-foreground">
       <NavbarShell />
       <SchemaJsonLd data={schemaData} />
-      {productKind === 'directory' ? (
-        <DirectoryHome
-          primaryTask={primaryTask}
-          enabledTasks={enabledTasks}
-          listingPosts={listingPosts}
-          classifiedPosts={classifiedPosts}
-          profilePosts={profilePosts}
-          brandPack={recipe.brandPack}
-        />
-      ) : null}
-      {productKind === 'editorial' ? (
-        <EditorialHome primaryTask={primaryTask} posts={editorialPosts} supportTasks={supportTasks} />
-      ) : null}
-      {productKind === 'visual' ? (
-        <VisualHome primaryTask={primaryTask} imagePosts={imagePosts} profilePosts={profilePosts} articlePosts={articlePosts} />
-      ) : null}
-      {productKind === 'curation' ? (
-        <CurationHome primaryTask={primaryTask} bookmarkPosts={bookmarkPosts} profilePosts={profilePosts} articlePosts={articlePosts} />
-      ) : null}
+      <main>
+        <HeroSection />
+        <CommunicationsTeamSection />
+        <DistributionFeaturesSection />
+        <IndustryCategoriesSection />
+        <CTASection />
+        <RecentPressReleasesSection />
+        <FAQSection />
+        <TestimonialsSection />
+      </main>
       <Footer />
     </div>
   )

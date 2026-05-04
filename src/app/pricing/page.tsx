@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowRight, Check, Star, Zap, Users, BarChart3, Globe, Shield, Headphones } from 'lucide-react'
+import { ArrowRight, Check, Star, Zap, Users, BarChart3, Globe, Headphones } from 'lucide-react'
 import { NavbarShell } from '@/components/shared/navbar-shell'
 import { Footer } from '@/components/shared/footer'
 import { buildPageMetadata } from '@/lib/seo'
@@ -148,18 +148,18 @@ export default function PricingPage() {
       <NavbarShell />
       
       <main>
-        {/* Hero Section */}
-        <section className="bg-gradient-to-br from-[#FBDB93]/20 to-white py-20">
+        {/* Hero Section — matches home (purple + gray) */}
+        <section className="relative bg-white py-20">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center">
-              <div className="inline-flex items-center gap-2 rounded-full bg-[#BE5B50]/10 px-4 py-2 text-sm font-semibold text-[#BE5B50] mb-6">
+              <div className="inline-flex items-center gap-2 rounded-full bg-purple-100 px-4 py-2 text-sm font-semibold text-purple-700 mb-6">
                 <Star className="h-4 w-4" />
                 Simple, transparent pricing
               </div>
-              <h1 className="text-4xl font-bold tracking-tight text-[#641B2E] sm:text-5xl lg:text-6xl">
+              <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
                 Choose Your Perfect Plan
               </h1>
-              <p className="mt-6 max-w-2xl text-lg text-[#8A2D3B]">
+              <p className="mt-6 mx-auto max-w-2xl text-lg text-gray-600">
                 Powerful press release distribution solutions designed to help you reach your audience and achieve your PR goals
               </p>
             </div>
@@ -167,21 +167,21 @@ export default function PricingPage() {
         </section>
 
         {/* Pricing Cards */}
-        <section className="py-20">
+        <section className="py-20 bg-gray-50">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid gap-8 lg:grid-cols-3">
-              {pricingPlans.map((plan, index) => (
+              {pricingPlans.map((plan) => (
                 <div
                   key={plan.name}
-                  className={`relative rounded-2xl border ${
+                  className={`relative rounded-2xl border bg-white ${
                     plan.highlighted
-                      ? 'border-[#BE5B50] shadow-2xl shadow-[#BE5B50]/20 scale-105'
-                      : 'border-[#BE5B50]/20 bg-white'
+                      ? 'border-purple-600 shadow-2xl shadow-purple-600/20 scale-105'
+                      : 'border-purple-100'
                   } p-8 transition-all hover:shadow-lg`}
                 >
                   {plan.highlighted && (
                     <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                      <div className="inline-flex items-center gap-1 rounded-full bg-[#BE5B50] px-4 py-2 text-sm font-semibold text-white">
+                      <div className="inline-flex items-center gap-1 rounded-full bg-purple-600 px-4 py-2 text-sm font-semibold text-white shadow-md">
                         <Zap className="h-4 w-4" />
                         Most Popular
                       </div>
@@ -189,12 +189,12 @@ export default function PricingPage() {
                   )}
 
                   <div className="text-center">
-                    <h3 className="text-2xl font-bold text-[#641B2E]">{plan.name}</h3>
+                    <h3 className="text-2xl font-bold text-gray-900">{plan.name}</h3>
                     <div className="mt-4">
-                      <span className="text-4xl font-bold text-[#641B2E]">{plan.price}</span>
-                      <span className="text-[#8A2D3B]">{plan.period}</span>
+                      <span className="text-4xl font-bold text-gray-900">{plan.price}</span>
+                      <span className="text-gray-600">{plan.period}</span>
                     </div>
-                    <p className="mt-4 text-[#8A2D3B]">{plan.description}</p>
+                    <p className="mt-4 text-gray-600">{plan.description}</p>
                   </div>
 
                   <div className="mt-8">
@@ -202,8 +202,8 @@ export default function PricingPage() {
                       href={`/register?plan=${plan.name.toLowerCase()}`}
                       className={`block w-full rounded-full py-3 text-center font-semibold transition-colors ${
                         plan.highlighted
-                          ? 'bg-[#BE5B50] text-white hover:bg-[#8A2D3B]'
-                          : 'border border-[#BE5B50] text-[#BE5B50] hover:bg-[#BE5B50] hover:text-white'
+                          ? 'bg-purple-600 text-white hover:bg-purple-700'
+                          : 'border border-purple-300 text-purple-600 hover:bg-purple-50'
                       }`}
                     >
                       Get Started
@@ -213,14 +213,14 @@ export default function PricingPage() {
                   <div className="mt-8 space-y-4">
                     {plan.features.map((feature) => (
                       <div key={feature} className="flex items-start gap-3">
-                        <Check className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#BE5B50]" />
-                        <span className="text-sm text-[#641B2E]">{feature}</span>
+                        <Check className="mt-0.5 h-5 w-5 flex-shrink-0 text-purple-600" />
+                        <span className="text-sm text-gray-700">{feature}</span>
                       </div>
                     ))}
                     {plan.notIncluded.map((feature) => (
                       <div key={feature} className="flex items-start gap-3 opacity-50">
-                        <div className="mt-0.5 h-5 w-5 flex-shrink-0 rounded-full border-2 border-[#BE5B50]/30" />
-                        <span className="text-sm text-[#8A2D3B] line-through">{feature}</span>
+                        <div className="mt-0.5 h-5 w-5 flex-shrink-0 rounded-full border-2 border-purple-200" />
+                        <span className="text-sm text-gray-500 line-through">{feature}</span>
                       </div>
                     ))}
                   </div>
@@ -231,11 +231,12 @@ export default function PricingPage() {
         </section>
 
         {/* Add-ons Section */}
-        <section className="bg-[#FBDB93]/10 py-20">
+        <section className="bg-white py-20">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-[#641B2E] sm:text-4xl">Enhance Your Plan</h2>
-              <p className="mt-4 text-lg text-[#8A2D3B]">
+              <span className="text-sm font-semibold text-purple-600 uppercase tracking-wider">Add-ons</span>
+              <h2 className="mt-2 text-3xl font-bold text-gray-900 sm:text-4xl">Enhance Your Plan</h2>
+              <p className="mt-4 text-lg text-gray-600">
                 Add powerful features to supercharge your press release distribution
               </p>
             </div>
@@ -244,15 +245,15 @@ export default function PricingPage() {
               {addOns.map((addon) => (
                 <div
                   key={addon.name}
-                  className="rounded-xl border border-[#BE5B50]/20 bg-white p-6 text-center transition-all hover:shadow-md hover:border-[#BE5B50]/40"
+                  className="rounded-xl border border-purple-100 bg-white p-6 text-center shadow-sm transition-all hover:shadow-md hover:border-purple-200"
                 >
-                  <addon.icon className="mx-auto h-12 w-12 text-[#BE5B50]" />
-                  <h3 className="mt-4 text-lg font-semibold text-[#641B2E]">{addon.name}</h3>
+                  <addon.icon className="mx-auto h-12 w-12 text-purple-600" />
+                  <h3 className="mt-4 text-lg font-semibold text-gray-900">{addon.name}</h3>
                   <div className="mt-2">
-                    <span className="text-2xl font-bold text-[#641B2E]">{addon.price}</span>
-                    <span className="text-[#8A2D3B]">{addon.period}</span>
+                    <span className="text-2xl font-bold text-gray-900">{addon.price}</span>
+                    <span className="text-gray-600">{addon.period}</span>
                   </div>
-                  <p className="mt-3 text-sm text-[#8A2D3B]">{addon.description}</p>
+                  <p className="mt-3 text-sm text-gray-600">{addon.description}</p>
                 </div>
               ))}
             </div>
@@ -260,11 +261,11 @@ export default function PricingPage() {
         </section>
 
         {/* FAQ Section */}
-        <section className="py-20">
+        <section className="py-20 bg-gray-50">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-[#641B2E] sm:text-4xl">Frequently Asked Questions</h2>
-              <p className="mt-4 text-lg text-[#8A2D3B]">
+              <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">Frequently Asked Questions</h2>
+              <p className="mt-4 text-lg text-gray-600">
                 Everything you need to know about our pricing and plans
               </p>
             </div>
@@ -273,10 +274,10 @@ export default function PricingPage() {
               {faqs.map((faq, index) => (
                 <div
                   key={index}
-                  className="rounded-xl border border-[#BE5B50]/20 bg-white p-6"
+                  className="rounded-xl border border-purple-200 bg-white p-6 shadow-sm"
                 >
-                  <h3 className="text-lg font-semibold text-[#641B2E]">{faq.question}</h3>
-                  <p className="mt-3 text-[#8A2D3B]">{faq.answer}</p>
+                  <h3 className="text-lg font-semibold text-gray-900">{faq.question}</h3>
+                  <p className="mt-3 text-gray-600">{faq.answer}</p>
                 </div>
               ))}
             </div>
@@ -284,18 +285,18 @@ export default function PricingPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="bg-gradient-to-r from-[#BE5B50] to-[#8A2D3B] py-20">
+        <section className="bg-gradient-to-br from-purple-600 to-purple-700 py-20 text-white">
           <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-white sm:text-4xl">
+            <h2 className="text-3xl font-bold sm:text-4xl">
               Ready to amplify your message?
             </h2>
-            <p className="mt-4 text-lg text-[#FBDB93]">
+            <p className="mt-4 text-lg text-white/90">
               Join thousands of companies using Narrixa.com to distribute their press releases
             </p>
             <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center">
               <Link
                 href="/register"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-3 font-semibold text-[#641B2E] transition-colors hover:bg-[#FBDB93]"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-3 font-semibold text-purple-600 transition-colors hover:bg-white/90"
               >
                 Start Free Trial
                 <ArrowRight className="h-4 w-4" />

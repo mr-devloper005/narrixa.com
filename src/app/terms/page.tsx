@@ -17,13 +17,13 @@ export default function TermsPage() {
       title="Terms of Service"
       description={`The rules and guidelines for using ${SITE_CONFIG.name}.`}
     >
-      <Card className="border-border bg-card">
+      <Card className="border-purple-100 bg-white">
         <CardContent className="space-y-4 p-6">
-          <p className="text-xs text-muted-foreground">Last updated: March 16, 2026</p>
+          <p className="text-xs text-purple-600">Last updated: March 16, 2026</p>
           {sections.map((section) => (
-            <div key={section.title} className="rounded-lg border border-border bg-secondary/40 p-4">
-              <h3 className="text-sm font-semibold text-foreground">{section.title}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">{section.body}</p>
+            <div key={section.title} className="rounded-lg border border-purple-100 bg-purple-50 p-4">
+              <h3 className="text-sm font-semibold text-purple-900">{section.title}</h3>
+              <p className="mt-2 text-sm text-gray-600">{section.body}</p>
             </div>
           ))}
         </CardContent>
