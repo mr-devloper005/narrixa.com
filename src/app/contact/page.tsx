@@ -33,9 +33,9 @@ export default function ContactPage() {
         ]
       : productKind === 'editorial'
         ? [
-            { icon: FileText, title: 'Press release submissions', body: 'Submit your press releases for distribution to our media network and get maximum coverage.' },
+            { icon: FileText, title: 'Press Wire submissions', body: 'Submit your Press Wires for distribution to our media network and get maximum coverage.' },
             { icon: Mail, title: 'Media partnerships', body: 'Coordinate with journalists, media outlets, and industry publications for enhanced distribution.' },
-            { icon: Sparkles, title: 'Distribution support', body: 'Get help with targeting, timing, and optimizing your press release campaigns.' },
+            { icon: Sparkles, title: 'Distribution support', body: 'Get help with targeting, timing, and optimizing your Press Wire campaigns.' },
           ]
         : productKind === 'visual'
           ? [
@@ -56,7 +56,7 @@ export default function ContactPage() {
         <section className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
           <div className={`rounded-[2rem] p-8 ${tone.shell}`}>
             <p className="text-xs font-semibold uppercase tracking-[0.24em] opacity-70">Contact {SITE_CONFIG.name}</p>
-            <h1 className="mt-4 text-5xl font-semibold tracking-[-0.05em]">Press release distribution support that understands your needs.</h1>
+            <h1 className="mt-4 text-5xl font-semibold tracking-[-0.05em]">Press Wire distribution support that understands your needs.</h1>
             <p className={`mt-5 max-w-2xl text-sm leading-8 ${tone.muted}`}>Whether you need help with distribution, targeting, or campaign strategy, we'll connect you with the right experts to maximize your media reach.</p>
             <div className="mt-8 space-y-4">
               {lanes.map((lane) => (
@@ -75,7 +75,7 @@ export default function ContactPage() {
               <input className="h-12 rounded-xl border border-gray-200 bg-transparent px-4 text-sm" placeholder="Your name" />
               <input className="h-12 rounded-xl border border-gray-200 bg-transparent px-4 text-sm" placeholder="Email address" />
               <input className="h-12 rounded-xl border border-gray-200 bg-transparent px-4 text-sm" placeholder="Company or organization" />
-              <textarea className="min-h-[180px] rounded-2xl border border-gray-200 bg-transparent px-4 py-3 text-sm" placeholder="Tell us about your press release needs, campaign goals, or distribution requirements." />
+              <textarea className="min-h-[180px] rounded-2xl border border-gray-200 bg-transparent px-4 py-3 text-sm" placeholder="Tell us about your Press Wire needs, campaign goals, or distribution requirements." />
               <button type="submit" className={`inline-flex h-12 items-center justify-center rounded-full px-6 text-sm font-semibold ${tone.action}`}>Send message</button>
             </form>
           </div>

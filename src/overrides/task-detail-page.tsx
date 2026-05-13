@@ -32,7 +32,7 @@ export async function TaskDetailPageOverride({ slug }: { task: TaskKey; slug: st
         <article>
           <div className="border border-[#BE5B50]/20 bg-[#FBDB93]/30 px-6 py-5 text-sm text-[#8A2D3B]">
             <span className="mr-3 inline-block bg-[#BE5B50] px-3 py-1 text-white">{new Date(post.publishedAt || Date.now()).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
-            <span>by {post.authorName || 'Press Release Desk'}</span>
+            <span>by {post.authorName || 'Press Wire Desk'}</span>
           </div>
           <div className="prose prose-lg mt-10 max-w-none prose-headings:font-black prose-headings:uppercase prose-headings:tracking-[0.01em]">
             <RichContent html={html} />
@@ -49,12 +49,12 @@ export async function TaskDetailPageOverride({ slug }: { task: TaskKey; slug: st
         <aside className="space-y-6">
           <div className="border border-[#BE5B50]/20 bg-white p-6">
             <div className="flex items-center gap-0">
-              <input className="h-12 flex-1 border border-[#BE5B50]/20 bg-white px-4 text-sm text-[#641B2E] outline-none placeholder-[#8A2D3B]" placeholder="Search press releases..." />
+              <input className="h-12 flex-1 border border-[#BE5B50]/20 bg-white px-4 text-sm text-[#641B2E] outline-none placeholder-[#8A2D3B]" placeholder="Search Press Wires..." />
               <button className="flex h-12 w-12 items-center justify-center bg-[#BE5B50] text-white hover:bg-[#8A2D3B] transition-colors">🔍</button>
             </div>
           </div>
           <div className="border border-[#BE5B50]/20 bg-white p-6">
-            <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-[#8A2D3B] mb-4">Recent Press Releases</h3>
+            <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-[#8A2D3B] mb-4">Recent Press Wires</h3>
             <div className="space-y-5">
               {recent.map((item) => (
                 <Link key={item.id} href={`/updates/${item.slug}`} className="block border-b border-[#BE5B50]/15 pb-5 last:border-b-0 last:pb-0 hover:bg-[#FBDB93]/20 -mx-2 px-2 py-1 rounded transition-colors">

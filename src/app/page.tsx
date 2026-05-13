@@ -31,7 +31,7 @@ function HeroSection() {
         <div className="relative z-10 grid gap-10 lg:grid-cols-[1.25fr_0.95fr] lg:items-center">
           <div>
             <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-white/80">
-              Press release distribution
+              Press Wire distribution
             </p>
             <h1 className="mt-4 max-w-3xl text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
               Reach journalists, readers, and search with wire-ready announcements.
@@ -129,7 +129,7 @@ function DistributionFeaturesSection() {
             </h2>
             <div className="space-y-4">
               {[
-                ['Instant Publishing', 'Your press releases go live immediately across all channels'],
+                ['Instant Publishing', 'Your Press Wires go live immediately across all channels'],
                 ['Targeted Reach', 'Connect with journalists, media outlets, and your target audience'],
                 ['Analytics Dashboard', 'Track performance, engagement, and media pickup in real-time'],
                 ['SEO Optimization', 'Built-in SEO tools ensure maximum visibility and search ranking']
@@ -249,7 +249,7 @@ function CTASection() {
         </div>
         <h2 className="text-3xl font-bold mb-4">Talk with our distribution desk</h2>
         <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto">
-          Get personalized guidance on your press release strategy and distribution needs
+          Get personalized guidance on your Press Wire strategy and distribution needs
         </p>
         <Link href="/contact" className="inline-flex items-center gap-2 rounded-full bg-white text-purple-600 px-6 py-3 font-semibold hover:bg-white/90 transition-colors">
           Contact Us
@@ -264,7 +264,7 @@ function RecentPressReleasesSection() {
   return (
     <section className="py-20 bg-gray-50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-bold text-gray-900 mb-8">Recent Press Releases</h2>
+        <h2 className="text-3xl font-bold text-gray-900 mb-8">Recent Press Wires</h2>
         <div className="grid gap-6 lg:grid-cols-3">
           <div className="lg:col-span-2">
             <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow border border-purple-100">
@@ -284,10 +284,10 @@ function RecentPressReleasesSection() {
                   <span className="text-sm text-gray-500">2 hours ago</span>
                 </div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-3">
-                  Pressly Announces Revolutionary AI-Powered Press Release Distribution Platform
+                  Pressly Announces Revolutionary AI-Powered Press Wire Distribution Platform
                 </h3>
                 <p className="text-gray-600 mb-4">
-                  Leading PR technology company unveils next-generation distribution platform that leverages artificial intelligence to optimize press release reach and engagement across global media networks.
+                  Leading PR technology company unveils next-generation distribution platform that leverages artificial intelligence to optimize Press Wire reach and engagement across global media networks.
                 </p>
                 <Link href="/newsroom" className="inline-flex items-center gap-2 text-purple-600 font-semibold hover:text-purple-700 transition-colors">
                   Read more
@@ -320,15 +320,15 @@ function FAQSection() {
   const faqs = [
     {
       question: "How quickly do releases appear?",
-      answer: "Press releases go live immediately upon publishing. Distribution to media outlets and journalists begins within minutes, ensuring your news reaches the right audience without delay."
+      answer: "Press Wires go live immediately upon publishing. Distribution to media outlets and journalists begins within minutes, ensuring your news reaches the right audience without delay."
     },
     {
       question: "Can we organize releases by topic?",
-      answer: "Yes! Our platform allows you to categorize press releases by topics, industries, campaigns, and custom tags. Create dedicated newsrooms for different aspects of your business."
+      answer: "Yes! Our platform allows you to categorize Press Wires by topics, industries, campaigns, and custom tags. Create dedicated newsrooms for different aspects of your business."
     },
     {
       question: "Do article pages support sharing?",
-      answer: "Absolutely. Every press release includes built-in social sharing buttons, direct link sharing, and embed options. Readers can easily share your news across all major social platforms."
+      answer: "Absolutely. Every Press Wire includes built-in social sharing buttons, direct link sharing, and embed options. Readers can easily share your news across all major social platforms."
     },
     {
       question: "Where should teams start with pricing?",
@@ -342,7 +342,7 @@ function FAQSection() {
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
           <p className="text-lg text-gray-600">
-            Everything you need to know about our press release distribution platform
+            Everything you need to know about our Press Wire distribution platform
           </p>
         </div>
         <Accordion type="single" collapsible className="space-y-4">
@@ -367,7 +367,7 @@ function TestimonialsSection() {
     {
       name: "Sarah Chen",
       role: "Communications Director, TechCorp",
-      content: "Pressly transformed how we handle press releases. The distribution is instant and the analytics give us insights we never had before.",
+      content: "Pressly transformed how we handle Press Wires. The distribution is instant and the analytics give us insights we never had before.",
       rating: 5
     },
     {

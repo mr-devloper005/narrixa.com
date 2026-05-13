@@ -7,14 +7,14 @@ import { mockTeamMembers } from "@/data/mock-data";
 import { SITE_CONFIG } from "@/lib/site-config";
 
 const highlights = [
-  { label: "Press releases distributed", value: "50k+" },
+  { label: "Press Wires distributed", value: "50k+" },
   { label: "Media outlets reached", value: "2,500+" },
   { label: "Companies served", value: "12k+" },
 ];
 
 const values = [
   { title: "Strategic distribution", description: "We connect your stories with the right journalists and publications for maximum impact." },
-  { title: "Targeted reach", description: "Our intelligent matching ensures your press releases reach the most relevant media contacts." },
+  { title: "Targeted reach", description: "Our intelligent matching ensures your Press Wires reach the most relevant media contacts." },
   { title: "Measurable results", description: "Track your campaign performance with comprehensive analytics and coverage reports." },
 ];
 
@@ -22,7 +22,7 @@ export default function AboutPage() {
   return (
     <PageShell
       title={`About ${SITE_CONFIG.name}`}
-      description={`${SITE_CONFIG.name} is a leading press release distribution platform connecting businesses with media outlets worldwide.`}
+      description={`${SITE_CONFIG.name} is a leading Press Wire distribution platform connecting businesses with media outlets worldwide.`}
       actions={
         <>
           <Link
@@ -42,7 +42,7 @@ export default function AboutPage() {
               Empowering businesses to share their stories with the world.
             </h2>
             <p className="text-sm text-purple-600">
-              {SITE_CONFIG.name} revolutionizes press release distribution by connecting businesses with the right journalists and publications, ensuring your news reaches the audience that matters most.
+              {SITE_CONFIG.name} revolutionizes Press Wire distribution by connecting businesses with the right journalists and publications, ensuring your news reaches the audience that matters most.
             </p>
             <div className="grid gap-4 sm:grid-cols-3">
               {highlights.map((item) => (

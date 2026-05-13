@@ -26,7 +26,7 @@ const footerLinks = {
     icon: taskIcons[task.key] || LayoutGrid,
   })),
   services: [
-    { name: 'Press Release Distribution', href: '/updates' },
+    { name: 'Press Wire Distribution', href: '/updates' },
     { name: 'Media Outreach', href: '/pricing' },
     { name: 'Analytics & Reporting', href: '/pricing' },
     { name: 'API Access', href: '/developers' },
@@ -154,7 +154,7 @@ export function Footer() {
             <div>
               <div className="inline-flex items-center gap-2 rounded-full border border-[#BE5B50]/20 bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#8A2D3B]">
                 <Sparkles className="h-3.5 w-3.5" />
-                Press release desk
+                Press Wire desk
               </div>
               <h3 className="mt-5 text-3xl font-semibold tracking-[-0.04em]">{SITE_CONFIG.name}</h3>
               <p className="mt-4 max-w-md text-sm leading-7 text-[#8A2D3B]">{SITE_CONFIG.description}</p>

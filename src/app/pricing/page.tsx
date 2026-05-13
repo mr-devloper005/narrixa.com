@@ -12,8 +12,8 @@ export async function generateMetadata(): Promise<Metadata> {
   return buildPageMetadata({
     path: '/pricing',
     title: 'Pricing Plans - Narrixa.com',
-    description: 'Choose the perfect press release distribution plan for your needs. Basic, Pro, and Premium options with comprehensive features.',
-    keywords: ['pricing', 'plans', 'press release distribution', 'media outreach', 'PR packages'],
+    description: 'Choose the perfect Press Wire distribution plan for your needs. Basic, Pro, and Premium options with comprehensive features.',
+    keywords: ['pricing', 'plans', 'Press Wire distribution', 'media outreach', 'PR packages'],
   })
 }
 
@@ -24,7 +24,7 @@ const pricingPlans = [
     period: '/month',
     description: 'Perfect for small businesses and startups',
     features: [
-      'Up to 5 press releases per month',
+      'Up to 5 Press Wires per month',
       'Basic media distribution',
       'Standard analytics dashboard',
       'Email support',
@@ -45,7 +45,7 @@ const pricingPlans = [
     period: '/month',
     description: 'Ideal for growing companies and PR agencies',
     features: [
-      'Up to 20 press releases per month',
+      'Up to 20 Press Wires per month',
       'Enhanced media distribution',
       'Advanced analytics & insights',
       'Priority email support',
@@ -66,7 +66,7 @@ const pricingPlans = [
     period: '/month',
     description: 'Complete solution for enterprises and large agencies',
     features: [
-      'Unlimited press releases',
+      'Unlimited Press Wires',
       'Premium media distribution',
       'Real-time analytics & reporting',
       '24/7 phone support',
@@ -160,7 +160,7 @@ export default function PricingPage() {
                 Choose Your Perfect Plan
               </h1>
               <p className="mt-6 mx-auto max-w-2xl text-lg text-gray-600">
-                Powerful press release distribution solutions designed to help you reach your audience and achieve your PR goals
+                Powerful Press Wire distribution solutions designed to help you reach your audience and achieve your PR goals
               </p>
             </div>
           </div>
@@ -237,7 +237,7 @@ export default function PricingPage() {
               <span className="text-sm font-semibold text-purple-600 uppercase tracking-wider">Add-ons</span>
               <h2 className="mt-2 text-3xl font-bold text-gray-900 sm:text-4xl">Enhance Your Plan</h2>
               <p className="mt-4 text-lg text-gray-600">
-                Add powerful features to supercharge your press release distribution
+                Add powerful features to supercharge your Press Wire distribution
               </p>
             </div>
 
@@ -291,7 +291,7 @@ export default function PricingPage() {
               Ready to amplify your message?
             </h2>
             <p className="mt-4 text-lg text-white/90">
-              Join thousands of companies using Narrixa.com to distribute their press releases
+              Join thousands of companies using Narrixa.com to distribute their Press Wires
             </p>
             <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center">
               <Link

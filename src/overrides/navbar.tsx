@@ -5,14 +5,12 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Menu, Search, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { SITE_CONFIG } from '@/lib/site-config'
 
 export const NAVBAR_OVERRIDE_ENABLED = true
 
 const navItems = [
   { label: 'Home', href: '/' },
   { label: 'Latest News', href: '/newsroom' },
-  { label: 'Pricing', href: '/pricing' },
   { label: 'About Us', href: '/about' },
   { label: 'Contact', href: '/contact' },
 ]
@@ -26,11 +24,12 @@ export function NavbarOverride() {
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
 
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 shrink-0">
-          <div>
-            <p className="text-sm font-bold leading-none text-gray-900 tracking-tight">{SITE_CONFIG.name}</p>
-            <p className="mt-0.5 text-[9px] uppercase tracking-[0.22em] text-gray-400">Media Press Release</p>
-          </div>
+        <Link href="/" className="flex items-center shrink-0">
+          <img
+            src="/logo.png"
+            alt="Logo"
+            className="h-10 w-auto object-contain"
+          />
         </Link>
 
         {/* Center nav links */}
