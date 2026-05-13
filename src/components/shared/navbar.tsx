@@ -46,7 +46,7 @@ export function Navbar() {
           </div>
           <div>
             <p className="text-sm font-bold leading-none text-gray-900 tracking-tight">Presslyy</p>
-            <p className="mt-0.5 text-[9px] uppercase tracking-[0.22em] text-gray-400">Media Press Release</p>
+            <p className="mt-0.5 text-[9px] uppercase tracking-[0.22em] text-gray-400">Media Press Wire</p>
           </div>
         </Link>
 

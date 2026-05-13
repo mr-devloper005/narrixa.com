@@ -1,4 +1,4 @@
-import { ArrowLeft, Calendar, Clock, Share2, Bookmark } from "lucide-react";
+import { ArrowLeft, Share2, Bookmark } from "lucide-react";
 import Link from "next/link";
 import { PageShell } from "@/components/shared/page-shell";
 import { Card, CardContent } from "@/components/ui/card";
@@ -319,10 +319,6 @@ export default async function PressReleasePage({
                 </Badge>
                 <h1 className="text-4xl font-bold mb-4">{pressRelease.title}</h1>
                 <div className="flex items-center gap-6">
-                  <span className="flex items-center gap-2">
-                    <Calendar className="h-4 w-4" />
-                    {pressRelease.date}
-                  </span>
                   <span>By {pressRelease.author}</span>
                 </div>
               </div>
@@ -341,10 +337,6 @@ export default async function PressReleasePage({
                   <Bookmark className="h-4 w-4 mr-2" />
                   Save
                 </Button>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-gray-500">
-                <Clock className="h-4 w-4" />
-                Published {pressRelease.date}
               </div>
             </div>
           </div>

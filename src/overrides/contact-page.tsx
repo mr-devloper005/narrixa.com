@@ -23,14 +23,14 @@ export function ContactPageOverride() {
                 </span>
                 <h1 className="mt-4 text-4xl font-bold tracking-tight sm:text-5xl">Contact Us</h1>
                 <p className="mt-3 text-sm text-white/90 sm:text-base">
-                  Professional press release support with experts who help your announcements reach the right audience.
+                  Professional Press Wire support with experts who help your announcements reach the right audience.
                 </p>
               </div>
             </div>
           </div>
         </section>
 
-        <section className="mt-10 grid gap-8 lg:grid-cols-[1.7fr_0.9fr]">
+        <section className="mt-10">
           <div className="rounded-md border border-purple-100 bg-gray-50 p-5 sm:p-6">
             <form className="space-y-4">
               <div className="grid gap-4 sm:grid-cols-2">

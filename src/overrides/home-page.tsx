@@ -31,14 +31,14 @@ export async function HomePageOverride() {
               <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
               </svg>
-              #1 Press Release Distribution Platform
+              #1 Press Wire Distribution Platform
             </span>
             <h1 className="mt-8 text-4xl font-black leading-tight tracking-[-0.04em] text-white sm:text-5xl lg:text-6xl">
               Amplify Your Story
               <span className="block text-[#FBDB93]"> to the World</span>
             </h1>
             <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-white/90 sm:text-xl">
-              Connect with thousands of journalists and media outlets. Distribute your press releases to the right audience with our intelligent targeting and real-time analytics.
+              Connect with thousands of journalists and media outlets. Distribute your Press Wires to the right audience with our intelligent targeting and real-time analytics.
             </p>
             <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:justify-center">
               <Link href="/pricing" className="inline-flex items-center justify-center rounded-full bg-[#BE5B50] px-8 py-4 text-base font-semibold text-white shadow-lg hover:bg-[#8A2D3B] transition-all hover:shadow-xl">
@@ -63,7 +63,7 @@ export async function HomePageOverride() {
               Everything You Need for Effective PR
             </h2>
             <p className="mt-4 text-lg text-[#8A2D3B]">
-              Comprehensive tools and services to maximize your press release impact
+              Comprehensive tools and services to maximize your Press Wire impact
             </p>
           </div>
           
@@ -75,7 +75,7 @@ export async function HomePageOverride() {
                 </svg>
               </div>
               <h3 className="mt-6 text-xl font-semibold text-[#641B2E]">Smart Distribution</h3>
-              <p className="mt-3 text-[#8A2D3B]">AI-powered targeting ensures your press releases reach the most relevant journalists and publications in your industry.</p>
+              <p className="mt-3 text-[#8A2D3B]">AI-powered targeting ensures your Press Wires reach the most relevant journalists and publications in your industry.</p>
             </div>
             
             <div className="rounded-2xl border border-[#BE5B50]/20 bg-white p-8 shadow-sm hover:shadow-lg transition-shadow">
@@ -85,7 +85,7 @@ export async function HomePageOverride() {
                 </svg>
               </div>
               <h3 className="mt-6 text-xl font-semibold text-[#641B2E]">Real-time Analytics</h3>
-              <p className="mt-3 text-[#8A2D3B]">Track opens, clicks, and media pickups in real-time. Get comprehensive reports on your press release performance.</p>
+              <p className="mt-3 text-[#8A2D3B]">Track opens, clicks, and media pickups in real-time. Get comprehensive reports on your Press Wire performance.</p>
             </div>
             
             <div className="rounded-2xl border border-[#BE5B50]/20 bg-white p-8 shadow-sm hover:shadow-lg transition-shadow">
@@ -116,7 +116,7 @@ export async function HomePageOverride() {
           <div className="mt-16 grid gap-8 lg:grid-cols-4">
             <div className="text-center">
               <div className="text-4xl font-black text-[#BE5B50] sm:text-5xl">50K+</div>
-              <p className="mt-2 text-[#8A2D3B]">Press Releases Distributed</p>
+              <p className="mt-2 text-[#8A2D3B]">Press Wires Distributed</p>
             </div>
             <div className="text-center">
               <div className="text-4xl font-black text-[#BE5B50] sm:text-5xl">2.5K+</div>
@@ -134,13 +134,13 @@ export async function HomePageOverride() {
         </div>
       </section>
 
-      {/* Recent Press Releases Section */}
+      {/* Recent Press Wires Section */}
       <section className="py-20 lg:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-3xl font-bold tracking-[-0.04em] text-[#641B2E] sm:text-4xl">
-                Latest Press Releases
+                Latest Press Wires
               </h2>
               <p className="mt-4 text-lg text-[#8A2D3B]">
                 Stay updated with the latest news and announcements
@@ -159,7 +159,7 @@ export async function HomePageOverride() {
               <article key={post.id} className="rounded-2xl border border-[#BE5B50]/20 bg-white p-6 shadow-sm hover:shadow-lg transition-shadow">
                 <div className="flex items-center gap-2 text-sm text-[#8A2D3B]">
                   <span className="bg-[#BE5B50]/10 px-2 py-1 text-xs font-semibold text-[#BE5B50]">
-                    {String((post.content as any)?.category || 'Press Release')}
+                    {String((post.content as any)?.category || 'Press Wire')}
                   </span>
                   <span>•</span>
                   <span>{new Date(post.publishedAt || Date.now()).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
@@ -203,7 +203,7 @@ export async function HomePageOverride() {
                 ))}
               </div>
               <blockquote className="mt-4 text-lg leading-7 text-[#641B2E]">
-                "Narrixa transformed our media outreach. Our press releases now reach journalists who actually care about our industry. The results have been phenomenal."
+                "Narrixa transformed our media outreach. Our Press Wires now reach journalists who actually care about our industry. The results have been phenomenal."
               </blockquote>
               <div className="mt-6 flex items-center gap-4">
                 <div className="h-12 w-12 rounded-full bg-[#FBDB93]/30 flex items-center justify-center">

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Calendar, Clock } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { PageShell } from "@/components/shared/page-shell";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -8,8 +8,8 @@ import { SITE_CONFIG } from "@/lib/site-config";
 const pressReleases = [
   {
     id: 1,
-    title: "Pressly Announces Revolutionary AI-Powered Press Release Distribution Platform",
-    excerpt: "Leading PR technology company unveils next-generation distribution platform that leverages artificial intelligence to optimize press release reach and engagement across global media networks.",
+    title: "Pressly Announces Revolutionary AI-Powered Press Wire Distribution Platform",
+    excerpt: "Leading PR technology company unveils next-generation distribution platform that leverages artificial intelligence to optimize Press Wire reach and engagement across global media networks.",
     category: "Company Update",
     date: "2 hours ago",
     image: "https://img.magnific.com/free-photo/long-shot-business-people-meeting_23-2148427153.jpg",
@@ -36,7 +36,7 @@ const pressReleases = [
   {
     id: 4,
     title: "Recognized as Top PR Technology Platform of 2024",
-    excerpt: "Industry awards highlight Pressly's innovation in press release distribution, customer satisfaction, and technological advancement.",
+    excerpt: "Industry awards highlight Pressly's innovation in Press Wire distribution, customer satisfaction, and technological advancement.",
     category: "Award",
     date: "1 week ago",
     image: "https://img.magnific.com/free-photo/award-ceremony-business-success_23-2148427153.jpg",
@@ -53,7 +53,7 @@ const pressReleases = [
   },
   {
     id: 6,
-    title: "Record-Breaking Quarter: 50,000+ Press Releases Distributed",
+    title: "Record-Breaking Quarter: 50,000+ Press Wires Distributed",
     excerpt: "Milestone achievement demonstrates platform's growing influence and reliability in the PR industry.",
     category: "Milestone",
     date: "3 weeks ago",
@@ -66,10 +66,10 @@ export default function NewsroomPage() {
   return (
     <PageShell
       title="Newsroom"
-      description={`Latest press releases and news from ${SITE_CONFIG.name}. Stay updated with our company announcements, product launches, and industry insights.`}
+      description={`Latest Press Wires and news from ${SITE_CONFIG.name}. Stay updated with our company announcements, product launches, and industry insights.`}
     >
       <div className="space-y-8">
-        {/* Featured Press Release */}
+        {/* Featured Press Wire */}
         <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
           <div>
             <Card className="border-purple-100 bg-white overflow-hidden">
@@ -88,10 +88,6 @@ export default function NewsroomPage() {
                     <h1 className="text-3xl font-bold mb-3">{pressReleases[0].title}</h1>
                     <p className="text-lg opacity-90 mb-4">{pressReleases[0].excerpt}</p>
                     <div className="flex items-center gap-4">
-                      <span className="flex items-center gap-2 text-sm">
-                        <Calendar className="h-4 w-4" />
-                        {pressReleases[0].date}
-                      </span>
                     </div>
                   </div>
                 </div>
@@ -101,7 +97,7 @@ export default function NewsroomPage() {
                   href={`/newsroom/${pressReleases[0].slug}`}
                   className="inline-flex items-center gap-2 text-purple-600 font-semibold hover:text-purple-700 transition-colors"
                 >
-                  Read full press release
+                  Read full Press Wire
                   <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
@@ -120,10 +116,6 @@ export default function NewsroomPage() {
                   <h3 className="font-semibold text-purple-900 mb-2 line-clamp-2">{release.title}</h3>
                   <p className="text-sm text-gray-600 mb-3 line-clamp-2">{release.excerpt}</p>
                   <div className="flex items-center justify-between">
-                    <span className="flex items-center gap-1 text-xs text-gray-500">
-                      <Clock className="h-3 w-3" />
-                      {release.date}
-                    </span>
                     <Link 
                       href={`/newsroom/${release.slug}`}
                       className="text-purple-600 text-sm font-semibold hover:text-purple-700"
@@ -137,9 +129,9 @@ export default function NewsroomPage() {
           </div>
         </div>
 
-        {/* All Press Releases Grid */}
+        {/* All Press Wires Grid */}
         <div>
-          <h2 className="text-2xl font-bold text-purple-900 mb-6">All Press Releases</h2>
+          <h2 className="text-2xl font-bold text-purple-900 mb-6">All Press Wires</h2>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {pressReleases.map((release) => (
               <Card key={release.id} className="border-purple-100 bg-white hover:shadow-lg transition-shadow">
@@ -161,11 +153,7 @@ export default function NewsroomPage() {
                 </div>
                 <CardContent className="p-4">
                   <p className="text-sm text-gray-600 mb-3 line-clamp-2">{release.excerpt}</p>
-                  <div className="flex items-center justify-between">
-                    <span className="flex items-center gap-1 text-xs text-gray-500">
-                      <Clock className="h-3 w-3" />
-                      {release.date}
-                    </span>
+                  <div className="flex items-center justify-end">
                     <Link 
                       href={`/newsroom/${release.slug}`}
                       className="text-purple-600 text-sm font-semibold hover:text-purple-700"
