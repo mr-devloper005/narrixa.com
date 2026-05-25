@@ -1,70 +1,173 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { Facebook, Linkedin, Link2, Mail, Twitter } from 'lucide-react'
 import { NavbarShell } from '@/components/shared/navbar-shell'
 import { Footer } from '@/components/shared/footer'
-import { fetchTaskPostBySlug, fetchTaskPosts } from '@/lib/task-data'
+import { ContentImage } from '@/components/shared/content-image'
+import { fetchTaskPostBySlug, fetchTaskPosts, buildPostUrl } from '@/lib/task-data'
 import type { TaskKey } from '@/lib/site-config'
+import type { SitePost } from '@/lib/site-connector'
+import { SITE_CONFIG } from '@/lib/site-config'
 import { formatRichHtml, RichContent } from '@/components/shared/rich-content'
+import { CATEGORY_OPTIONS, normalizeCategory } from '@/lib/categories'
 
 export const TASK_DETAIL_PAGE_OVERRIDE_ENABLED = true
+
+const isValidImageUrl = (value?: string | null) =>
+  typeof value === 'string' && (value.startsWith('/') || /^https?:\/\//i.test(value))
+
+const getContent = (post: SitePost) => {
+  const content = post.content && typeof post.content === 'object' ? post.content : {}
+  return content as Record<string, unknown>
+}
+
+const getImageUrls = (post: SitePost, content: Record<string, unknown>) => {
+  const media = Array.isArray(post.media) ? post.media : []
+  const mediaImages = media.map((item) => item?.url).filter((url): url is string => isValidImageUrl(url))
+  const contentImages = Array.isArray(content.images)
+    ? content.images.filter((url): url is string => typeof url === 'string' && isValidImageUrl(url))
+    : []
+  const merged = [...mediaImages, ...contentImages]
+  if (merged.length) return merged
+  if (isValidImageUrl(content.logo as string)) return [content.logo as string]
+  return [] as string[]
+}
+
+const getCategoryLabel = (post: SitePost, content: Record<string, unknown>) => {
+  const raw =
+    (typeof content.category === 'string' && content.category.trim()) ||
+    (Array.isArray(post.tags) ? post.tags.find((tag) => typeof tag === 'string' && tag !== 'mediaDistribution') : '') ||
+    ''
+  if (!raw || typeof raw !== 'string') return 'Press releases'
+  const normalized = normalizeCategory(raw)
+  return CATEGORY_OPTIONS.find((item) => item.slug === normalized)?.name || raw.trim()
+}
 
 export async function TaskDetailPageOverride({ slug }: { task: TaskKey; slug: string }) {
   const post = await fetchTaskPostBySlug('mediaDistribution', slug)
   if (!post) notFound()
-  const recent = (await fetchTaskPosts('mediaDistribution', 8, { fresh: true })).filter((item) => item.slug !== slug).slice(0, 5)
-  const content = (post.content || {}) as Record<string, unknown>
-  const html = formatRichHtml((content.body as string) || post.summary || '', 'Post body will appear here.')
+
+  const related = (await fetchTaskPosts('mediaDistribution', 8, { fresh: true }))
+    .filter((item) => item.slug !== slug)
+    .slice(0, 4)
+
+  const content = getContent(post)
+  const rawBody =
+    (typeof content.body === 'string' && content.body.trim()) ||
+    (typeof content.description === 'string' && content.description.trim()) ||
+    post.summary ||
+    ''
+  const html = formatRichHtml(rawBody, '')
+  const images = getImageUrls(post, content)
+  const hero = images[0]
+  const archivePath = SITE_CONFIG.taskViews.mediaDistribution || '/updates'
+  const categoryLabel = getCategoryLabel(post, content)
+  const categorySlug = normalizeCategory(categoryLabel)
+  const pageUrl = `${SITE_CONFIG.baseUrl.replace(/\/$/, '')}${buildPostUrl('mediaDistribution', post.slug)}`
+  const shareText = encodeURIComponent(post.title)
+  const shareUrl = encodeURIComponent(pageUrl)
+  const date = post.publishedAt
+    ? new Date(post.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
+    : ''
 
   return (
-    <div className="min-h-screen bg-[#FBDB93]/20 text-[#641B2E]">
+    <div className="min-h-screen bg-white text-foreground">
       <NavbarShell />
-      <section className="bg-[#641B2E] py-14 text-white">
-        <div className="mx-auto max-w-6xl px-4 text-center sm:px-6">
-          <h1 className="mx-auto max-w-5xl text-4xl font-black uppercase leading-tight tracking-[0.02em] sm:text-5xl">{post.title}</h1>
-          <div className="mt-5 flex items-center justify-center gap-3 text-sm text-[#FBDB93]">
-            <Link href="/" className="hover:text-white">Home</Link>
-            <span>›</span>
-            <span className="truncate">{post.title}</span>
+
+      <article className="mx-auto max-w-6xl px-4 pb-16 pt-8 sm:px-6 lg:pt-12">
+        <nav className="text-xs font-medium text-muted-foreground">
+          <Link href="/" className="hover:text-primary">
+            Home
+          </Link>
+          <span className="mx-2 opacity-40">/</span>
+          <Link href={archivePath} className="hover:text-primary">
+            Press releases
+          </Link>
+          <span className="mx-2 opacity-40">/</span>
+          <Link href={`${archivePath}?category=${categorySlug}`} className="hover:text-primary">
+            {categoryLabel}
+          </Link>
+        </nav>
+
+        <div className="mt-8 grid gap-12 lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-14">
+          <div className="min-w-0">
+            <h1 className="font-[family-name:var(--font-display)] text-3xl font-semibold leading-[1.12] tracking-[-0.03em] text-foreground sm:text-4xl lg:text-[2.35rem]">
+              {post.title}
+            </h1>
+
+            {date ? (
+              <div className="mt-5 text-sm text-muted-foreground">
+                <span>{date}</span>
+              </div>
+            ) : null}
+
+            <div className="mt-6 flex flex-wrap gap-2">
+              <a
+                href={`https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-white text-foreground shadow-sm transition hover:border-primary/40 hover:bg-muted"
+                aria-label="Share on X"
+              >
+                <Twitter className="h-4 w-4" />
+              </a>
+              <a
+                href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-white text-foreground shadow-sm transition hover:border-primary/40 hover:bg-muted"
+                aria-label="Share on LinkedIn"
+              >
+                <Linkedin className="h-4 w-4" />
+              </a>
+              <a
+                href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-white text-foreground shadow-sm transition hover:border-primary/40 hover:bg-muted"
+                aria-label="Share on Facebook"
+              >
+                <Facebook className="h-4 w-4" />
+              </a>
+              <a
+                href={`mailto:?subject=${shareText}&body=${shareUrl}`}
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-white text-foreground shadow-sm transition hover:border-primary/40 hover:bg-muted"
+                aria-label="Email this release"
+              >
+                <Mail className="h-4 w-4" />
+              </a>
+              <span className="inline-flex items-center gap-1 rounded-full border border-dashed border-border px-3 py-2 text-xs text-muted-foreground">
+                <Link2 className="h-3.5 w-3.5" />
+                {pageUrl.replace(/^https?:\/\//, '')}
+              </span>
+            </div>
+
+            {hero ? (
+              <div className="relative mt-10 aspect-[16/9] w-full overflow-hidden rounded-[1.25rem] border border-border bg-muted shadow-sm">
+                <ContentImage src={hero} alt={post.title} fill className="object-cover" priority />
+              </div>
+            ) : null}
+
+            <RichContent html={html} className="article-content mt-10 max-w-none text-[1.05rem] leading-[1.75] text-foreground/90" />
           </div>
+
+          <aside className="space-y-6 lg:pt-2">
+            <div className="rounded-[1.25rem] border border-border bg-white p-6 shadow-sm">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">More releases</p>
+              <ul className="mt-4 space-y-4">
+                {related.map((item) => (
+                  <li key={item.id}>
+                    <Link href={buildPostUrl('mediaDistribution', item.slug)} className="block text-sm font-semibold leading-snug text-foreground hover:text-primary">
+                      {item.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </aside>
         </div>
-      </section>
-      <main className="mx-auto grid max-w-6xl gap-12 px-4 py-10 sm:px-6 lg:grid-cols-[minmax(0,1fr)_280px]">
-        <article>
-          <div className="border border-[#BE5B50]/20 bg-[#FBDB93]/30 px-6 py-5 text-sm text-[#8A2D3B]">
-            <span className="mr-3 inline-block bg-[#BE5B50] px-3 py-1 text-white">{new Date(post.publishedAt || Date.now()).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
-            <span>by {post.authorName || 'Press Wire Desk'}</span>
-          </div>
-          <div className="prose prose-lg mt-10 max-w-none prose-headings:font-black prose-headings:uppercase prose-headings:tracking-[0.01em]">
-            <RichContent html={html} />
-          </div>
-          <div className="mt-12 grid gap-0 border border-[#BE5B50]/20 md:grid-cols-2">
-            {recent.slice(0,2).map((item, index) => (
-              <Link key={item.id} href={`/updates/${item.slug}`} className="border-[#BE5B50]/20 bg-white p-6 first:border-b md:first:border-b-0 md:first:border-r hover:bg-[#FBDB93]/20 transition-colors">
-                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#8A2D3B]">{index === 0 ? 'Previous Post' : 'Next Post'}</p>
-                <p className="mt-3 text-lg leading-8 text-[#641B2E]">{item.title}</p>
-              </Link>
-            ))}
-          </div>
-        </article>
-        <aside className="space-y-6">
-          <div className="border border-[#BE5B50]/20 bg-white p-6">
-            <div className="flex items-center gap-0">
-              <input className="h-12 flex-1 border border-[#BE5B50]/20 bg-white px-4 text-sm text-[#641B2E] outline-none placeholder-[#8A2D3B]" placeholder="Search Press Wires..." />
-              <button className="flex h-12 w-12 items-center justify-center bg-[#BE5B50] text-white hover:bg-[#8A2D3B] transition-colors">🔍</button>
-            </div>
-          </div>
-          <div className="border border-[#BE5B50]/20 bg-white p-6">
-            <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-[#8A2D3B] mb-4">Recent Press Wires</h3>
-            <div className="space-y-5">
-              {recent.map((item) => (
-                <Link key={item.id} href={`/updates/${item.slug}`} className="block border-b border-[#BE5B50]/15 pb-5 last:border-b-0 last:pb-0 hover:bg-[#FBDB93]/20 -mx-2 px-2 py-1 rounded transition-colors">
-                  <p className="text-base leading-7 text-[#641B2E]">{item.title}</p>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </aside>
-      </main>
+      </article>
+
       <Footer />
     </div>
   )
